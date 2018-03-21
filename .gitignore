@@ -1,1 +1,3 @@
 .vscode
+src/recommender-service/map/*.osm.gz
+src/recommender-service/map/*.osm/*.osm
