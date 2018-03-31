@@ -1,0 +1,19 @@
+.Map {
+    text-align: center;
+  }
+  
+  .Map-header {
+    background-color: #222;
+    height: 50px;
+    padding: 20px;
+    color: white;
+  }
+  
+  .Map-title {
+    font-size: 1.5em;
+  }
+  
+  .Map-intro {
+    font-size: large;
+  }
+  
