@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './Map.css';
+import SimpleMap from "./SimpleMap"
 
 class Map extends Component {
   render() {
@@ -8,9 +9,7 @@ class Map extends Component {
         <header className="Map-header">
           <h1 className="Map-title">Tourist Route Recommender</h1>
         </header>
-        <p className="Map-intro">
-          Add map here
-        </p>
+        <SimpleMap />
       </div>
     );
   }
