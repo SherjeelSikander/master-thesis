@@ -4,8 +4,6 @@ import GoogleMapKey from './key.json';
 import Polyline from "./Polyline";
 import Marker from "./Marker";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
-
 class SimpleMap extends Component {
 
   constructor(){
@@ -13,6 +11,7 @@ class SimpleMap extends Component {
     this.state = {
       start: {lat: 0, lng: 0},
       end: {lat: 0, lng: 0},
+      marker: {lat: 0, lng: 0},
       mapLoaded: false
     };
   }
@@ -26,7 +25,7 @@ class SimpleMap extends Component {
   };
 
   onClick = ({x, y, lat, lng, event}) => {
-    this.setState({start:{lat: lat, lng: lng}});
+    this.setState({marker:{lat: lat, lng: lng}});
   }
 
   render() {
@@ -43,12 +42,7 @@ class SimpleMap extends Component {
         >
 
         { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} /> }
-        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} /> }
-          <AnyReactComponent
-            lat={this.state.start.lat}
-            lng={this.state.start.lng}
-            text={'Sherjeel Sikander'}
-          />
+        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.marker} /> }
 
         </GoogleMapReact>
       </div>
