@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 import GoogleMapKey from './key.json';
 import Polyline from "./Polyline";
+import Marker from "./Marker";
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -31,7 +32,7 @@ class SimpleMap extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '85vh', width: '100%' }}>
+      <div style={{ height: '88vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GoogleMapKey.key }}
           defaultCenter={this.props.center}
@@ -42,7 +43,7 @@ class SimpleMap extends Component {
         >
 
         { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} /> }
-          
+        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} /> }
           <AnyReactComponent
             lat={this.state.start.lat}
             lng={this.state.start.lng}
