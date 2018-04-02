@@ -9,11 +9,11 @@ class SimpleMap extends Component {
   constructor(){
     super();
     this.state = {
-      start: {lat: 0, lng: 0},
-      end: {lat: 0, lng: 0},
-      marker: {lat: 0, lng: 0},
+      start: {lat: 0, lng: 0, title: "start"},
+      destination: {lat: 0, lng: 0, title: "destination"},
       mapLoaded: false
     };
+    this.isStart = true;
   }
 
   static defaultProps = {
@@ -21,17 +21,26 @@ class SimpleMap extends Component {
       lat: 48.1496636,
       lng: 11.5656715
     },
-    zoom: 12
+    zoom: 12,
+    greenMarker: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
+    redMarker: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
   };
 
   onClick = ({x, y, lat, lng, event}) => {
-    this.setState({marker:{lat: lat, lng: lng}});
+    if(this.isStart === true){
+      this.setState({start:{lat: lat, lng: lng, title: "start", icon: this.props.redMarker}});
+      this.isStart = false;
+    }
+    else if(this.isStart === false) {
+      this.setState({destination:{lat: lat, lng: lng, title: "destination", icon: this.props.greenMarker}});
+      this.isStart = true;
+    }
   }
 
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '88vh', width: '100%' }}>
+      <div style={{ height: '60vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: GoogleMapKey.key }}
           defaultCenter={this.props.center}
@@ -42,7 +51,8 @@ class SimpleMap extends Component {
         >
 
         { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} /> }
-        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.marker} /> }
+        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
+        { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.destination} /> }
 
         </GoogleMapReact>
       </div>

@@ -4,9 +4,10 @@
   
   .Map-header {
     background-color: #222;
-    height: 50px;
-    padding: 20px;
+    height: 60px;
+    padding: 15px;
     color: white;
+    margin-bottom: 20px;
   }
   
   .Map-title {
