@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import './Map.css';
 import SimpleMap from "./SimpleMap"
-import MapOptions from "./MapOptions"
+import MapOperations from "./MapOperations"
 import { Container, Row, Col } from 'reactstrap'; 
 
 class Map extends Component {
+
+  constructor() {
+    super();
+    this.getOperation = this.getOperation.bind(this);
+  }
+
+  getOperation(val){
+    console.log("Get Operation");
+    console.log(val);
+  }
+
   render() {
     return (
       <div className="Map">
@@ -14,7 +25,7 @@ class Map extends Component {
         <Container>
           <Row>              
             <Col xs="8"> <SimpleMap/>  </Col>
-            <Col xs="4"> <MapOptions/> </Col>
+            <Col xs="4"> <MapOperations sendOperation={this.getOperation} /> </Col>
           </Row>
         </Container>
       </div>

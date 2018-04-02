@@ -1,15 +1,12 @@
-.Map {
-    text-align: center;
-  }
-  
-  .Map-header {
-    background-color: #222;
-    height: 60px;
-    padding: 15px;
-    color: white;
-    margin-bottom: 20px;
-  }
-  
-  .Map-title {
-    font-size: 1.5em;
-  }
+.Map-header {
+  text-align: center;
+  background-color: #222;
+  height: 60px;
+  padding: 15px;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.Map-title {
+  font-size: 1.5em;
+}
