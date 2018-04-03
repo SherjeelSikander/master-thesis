@@ -13,7 +13,8 @@ class MapOperations extends Component {
     none: 0, 
     selectStart: 1,
     selectDestination: 2,
-    clear: 3
+    clear: 3, 
+    calculate: 4
   };
 
   clearSelection(){
@@ -23,6 +24,10 @@ class MapOperations extends Component {
   onRadioBtnClick(rSelected) {
     this.setState({ rSelected });
     this.props.sendOperation(rSelected);
+  }
+
+  calculate(){
+    this.props.sendOperation(MapOperations.operations.calculate);
   }
 
   render() {
@@ -43,6 +48,10 @@ class MapOperations extends Component {
             {this.state.rSelected === MapOperations.operations.selectDestination && <p> Select destination point on map. </p>}
           </div>
         </Row>
+
+         <Row>
+            <Button color="primary" size="sm" onClick={() => this.calculate()}>Calculate</Button>
+         </Row>
 
       </div>
     );

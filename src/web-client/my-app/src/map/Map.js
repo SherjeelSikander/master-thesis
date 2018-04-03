@@ -15,8 +15,25 @@ class Map extends Component {
     };
   }
 
+  isStartDestinationValid(){
+    var state = this.refs.simpleMap.state;
+    if(state.start.lat !== 0 && state.start.lng !== 0 && state.destination.lat !== 0 && state.destination.lng !== 0){
+      return true;
+    } else{
+      console.log("Start or Destination point is missing");
+      return false;
+    }
+  }
+
   getOperation(operation){
-    this.setState({ operation: operation });
+    if(operation === MapOperations.operations.calculate){
+      if(this.isStartDestinationValid()){
+        var state = this.refs.simpleMap.state;
+        console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng)
+      }
+    } else {
+      this.setState({ operation: operation });
+    }
   }
 
   getResult(result){
@@ -32,7 +49,7 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="8"> <SimpleMap operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="8"> <SimpleMap ref="simpleMap" operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="4"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} /> </Col>
           </Row>
         </Container>
