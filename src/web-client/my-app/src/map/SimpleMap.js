@@ -3,6 +3,7 @@ import GoogleMapReact from 'google-map-react';
 import GoogleMapKey from './key.json';
 import Polyline from "./Polyline";
 import Marker from "./Marker";
+import MapOperations from "./MapOperations"
 
 class SimpleMap extends Component {
 
@@ -13,7 +14,19 @@ class SimpleMap extends Component {
       destination: {lat: 0, lng: 0, title: "destination"},
       mapLoaded: false
     };
-    this.isStart = true;
+    this.selectStart = false;
+    this.selectDestination = false;
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.operation === MapOperations.operations.selectStart) {
+      this.selectStart = true;
+      this.selectDestination = false;
+    }
+    if(nextProps.operation === MapOperations.operations.selectDestination) {
+      this.selectDestination = true;
+      this.selectStart = false;
+    }
   }
 
   static defaultProps = {
@@ -27,13 +40,15 @@ class SimpleMap extends Component {
   };
 
   onClick = ({x, y, lat, lng, event}) => {
-    if(this.isStart === true){
+    if(this.selectStart === true){
       this.setState({start:{lat: lat, lng: lng, title: "start", icon: this.props.redMarker}});
-      this.isStart = false;
+      this.selectStart = false;
+      this.props.sendResult({start:{lat: lat, lng: lng, title: "start", icon: this.props.redMarker}});
     }
-    else if(this.isStart === false) {
+    else if(this.selectDestination === true) {
       this.setState({destination:{lat: lat, lng: lng, title: "destination", icon: this.props.greenMarker}});
-      this.isStart = true;
+      this.selectDestination = false;
+      this.props.sendResult({destination:{lat: lat, lng: lng, title: "destination", icon: this.props.greenMarker}});
     }
   }
 

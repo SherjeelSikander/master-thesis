@@ -12,8 +12,13 @@ class MapOperations extends Component {
   static operations = {
     none: 0, 
     selectStart: 1,
-    selectDestination: 2
+    selectDestination: 2,
+    clear: 3
   };
+
+  clearSelection(){
+    this.setState({ rSelected: MapOperations.operations.clear });
+  }
 
   onRadioBtnClick(rSelected) {
     this.setState({ rSelected });

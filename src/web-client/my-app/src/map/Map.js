@@ -9,11 +9,19 @@ class Map extends Component {
   constructor() {
     super();
     this.getOperation = this.getOperation.bind(this);
+    this.getResult = this.getResult.bind(this);
+    this.state = {
+      operation: MapOperations.operations.none
+    };
   }
 
-  getOperation(val){
-    console.log("Get Operation");
-    console.log(val);
+  getOperation(operation){
+    this.setState({ operation: operation });
+  }
+
+  getResult(result){
+    this.setState({ result: result });
+    this.refs.mapOperations.clearSelection();
   }
 
   render() {
@@ -24,8 +32,8 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="8"> <SimpleMap/>  </Col>
-            <Col xs="4"> <MapOperations sendOperation={this.getOperation} /> </Col>
+            <Col xs="8"> <SimpleMap operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="4"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} /> </Col>
           </Row>
         </Container>
       </div>
