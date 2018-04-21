@@ -3,6 +3,7 @@ import './Map.css';
 import SimpleMap from "./SimpleMap"
 import MapOperations from "./MapOperations"
 import { Container, Row, Col } from 'reactstrap'; 
+import axios from 'axios';
 
 class Map extends Component {
 
@@ -29,7 +30,9 @@ class Map extends Component {
     if(operation === MapOperations.operations.calculate){
       if(this.isStartDestinationValid()){
         var state = this.refs.simpleMap.state;
-        console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng)
+        console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
+        axios.get('https://api.github.com/users/SherjeelSikander')
+        .then(response => console.log(response))
       }
     } else {
       this.setState({ operation: operation });
