@@ -35,7 +35,10 @@ $ git clone
 $ (venv) user@machine $ cd [to where the project is]
 $ pip -r requirements.txt
 
-# If using VS code don't forget to update python.pythonPath in .vscode/settings.json to the python installed inside the env folder
+# If using VS code don't forget to update python.pythonPath in .vscode/settings.json to the python installed inside the env folder e.g.
+{
+    "python.pythonPath": "D:\\Documents\\Thesis\\master-thesis\\src\\recommender-service\\env\\Scripts\\python.exe"
+}
 
 ########## FOR DEVELOPMENT - running flask API ##########
 
