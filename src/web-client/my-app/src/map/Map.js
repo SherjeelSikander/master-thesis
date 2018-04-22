@@ -30,8 +30,9 @@ class Map extends Component {
     if(operation === MapOperations.operations.calculate){
       if(this.isStartDestinationValid()){
         var state = this.refs.simpleMap.state;
+        var localhost = 'http://127.0.0.1:5000/';
         console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
-        axios.get('https://api.github.com/users/SherjeelSikander')
+        axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng)
         .then(response => console.log(response))
       }
     } else {

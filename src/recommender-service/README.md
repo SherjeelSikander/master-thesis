@@ -47,4 +47,11 @@ $ env/Scripts/activate
 # on Linux enter the following on command line
 $ source env/venv/bin/activate
 
+# to start the api service
 $ python api.py
+
+References:
+https://developer.akamai.com/blog/2017/06/21/building-virtual-python-environment/
+http://mherman.org/blog/2017/04/26/flask-for-node-developers/#.WtswQYhuZPY
+https://www.python.org/dev/peps/pep-0405/#isolation-from-system-site-packages
+https://blog.miguelgrinberg.com/post/designing-a-restful-api-with-python-and-flask
