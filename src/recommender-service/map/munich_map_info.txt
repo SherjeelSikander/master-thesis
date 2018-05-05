@@ -1,7 +1,8 @@
+--------Munich Map Large--------
 Download Link:
 https://download.bbbike.org/osm/extract/planet_11.339_48.063_dc89e757.osm.gz
 Name of Area: Munich
-Size 52.4MB
+Size: 52.4MB
 
 Area: 'Munich' covers 940 square km 
 Coordinates: [["11.339","48.063"],["11.455","48.037"],["11.57","48.018"],["11.663","48.015"],["11.703","48.038"],["11.737","48.074"],["11.756","48.112"],["11.771","48.158"],["11.769","48.206"],["11.76","48.27"],["11.715","48.308"],["11.574","48.32"],["11.47","48.298"],["11.356","48.252"],["11.305","48.196"],["11.309","48.119"]] 
@@ -10,5 +11,18 @@ Format: OSM XML gzip'd
 Extract latest from this URL
 https://extract.bbbike.org/?sw_lng=11.305&sw_lat=48.015&ne_lng=11.771&ne_lat=48.32&format=osm.gz&coords=11.339%2C48.063%7C11.455%2C48.037%7C11.57%2C48.018%7C11.663%2C48.015%7C11.703%2C48.038%7C11.737%2C48.074%7C11.756%2C48.112%7C11.771%2C48.158%7C11.769%2C48.206%7C11.76%2C48.27%7C11.715%2C48.308%7C11.574%2C48.32%7C11.47%2C48.298%7C11.356%2C48.252%7C11.305%2C48.196%7C11.309%2C48.119&city=Munich&lang=en
 
-https://download.bbbike.org/osm/extract/
+--------Munich Map Small--------
+Download Link:
+https://download.bbbike.org/osm/extract/planet_11.549_48.143_d83f2300.osm.gz
+Name of Area: Munich Center Map
+Size: 2.4 MB
 
+Area: 'Munich Center Map' covers 9 square km 
+Coordinates: [["11.549","48.143"],["11.555","48.137"],["11.563","48.134"],["11.576","48.131"],["11.588","48.129"],["11.6","48.132"],["11.605","48.144"],["11.604","48.153"],["11.595","48.157"],["11.585","48.157"],["11.566","48.158"],["11.556","48.15"]] 
+Format: OSM XML gzip'd
+
+Extract latest from this URL
+https://extract.bbbike.org/?sw_lng=11.549&sw_lat=48.129&ne_lng=11.605&ne_lat=48.158&format=osm.gz&coords=11.549%2C48.143%7C11.555%2C48.137%7C11.563%2C48.134%7C11.576%2C48.131%7C11.588%2C48.129%7C11.6%2C48.132%7C11.605%2C48.144%7C11.604%2C48.153%7C11.595%2C48.157%7C11.585%2C48.157%7C11.566%2C48.158%7C11.556%2C48.15&city=Munich%20Center%20Map&lang=en
+
+----------------
+https://download.bbbike.org/osm/extract/

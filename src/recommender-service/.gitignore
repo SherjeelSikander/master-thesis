@@ -1,1 +1,4 @@
 env
+map/*.osm
+map/*.osm.gz
+map/*.osm/*.osm
