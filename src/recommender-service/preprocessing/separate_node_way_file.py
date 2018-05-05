@@ -1,18 +1,21 @@
 import sys
-import xml.etree.ElementTree as ET
 
-# if len(sys.argv) < 2:
-#     print("Missing 1 filename argument.")
-#     sys.exit(0)
+if len(sys.argv) > 2:
+    print("Invalid argument list. Only 1 filename argument allowed.")
+    sys.exit(0)
 
-# if len(sys.argv) > 2:
-#     print("Invalid argument list. Only 1 filename argument allowed.")
-#     sys.exit(0)
+if len(sys.argv) == 2:
+    filename = sys.argv[1]
+    path = ''
+else:
+    filename = 'munich_small'
+    path = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/'
 
-# filename = sys.argv[1]
-map = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/munich_small.osm'
-map_nodes = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/munich_small.nodes'
+map = path + filename + '.osm'
+map_nodes = path + filename + '.nodes'
+map_ways = path + filename + '.ways'
 
+# separate nodes
 try:
     mapFile = open(map, 'r', encoding="utf8")
     mapNodesFile = open(map_nodes, 'w', encoding="utf8")
@@ -25,7 +28,24 @@ try:
                 mapNodesFile.write(line)
     mapFile.close()
     mapNodesFile.close()
-    print("Done")
+    print("Nodes File Created.")
+        
+except IOError:
+    print ("Could not read file or file does not exist: ", map)
+    sys.exit()
+
+# separate ways
+try:
+    mapFile = open(map, 'r', encoding="utf8")
+    mapWaysFile = open(map_ways, 'w', encoding="utf8")
+    for line in mapFile:
+        if line.startswith('\t<way') or line.startswith('\t</way'):
+            mapWaysFile.write(line)
+        elif line.startswith('\t\t<nd'):
+            mapWaysFile.write(line)
+    mapFile.close()
+    mapWaysFile.close()
+    print("Ways File Created.")
         
 except IOError:
     print ("Could not read file or file does not exist: ", map)
