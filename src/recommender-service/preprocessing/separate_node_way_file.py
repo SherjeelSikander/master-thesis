@@ -8,8 +8,9 @@ if len(sys.argv) == 2:
     filename = sys.argv[1]
     path = ''
 else:
+    # helpful when running manually e.g. using vs code with debugger
     filename = 'munich_small'
-    path = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/'
+    path = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/' 
 
 map = path + filename + '.osm'
 map_nodes = path + filename + '.nodes'
