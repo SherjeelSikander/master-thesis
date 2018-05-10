@@ -24,7 +24,7 @@ try:
     mapNodesFile = open(map_nodes, 'r', encoding="utf8")
     for line in mapNodesFile:    
         node = ET.fromstring(line)
-        node_dict[node.attrib['id']] = (node.attrib['lat'], node.attrib['lon']) 
+        node_dict[node.attrib['id']] = (float(node.attrib['lat']), float(node.attrib['lon'])) 
     mapNodesFile.close()
     
     dumpfiletime = time.time()
