@@ -32,8 +32,15 @@ class Map extends Component {
         var state = this.refs.simpleMap.state;
         var localhost = 'http://127.0.0.1:5000/';
         console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
+
         axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng)
-        .then(response => console.log(response))
+        .then(response => {
+          var path = [];
+          for (var i = 0; i < response.data.length; i++) {
+            path.push({lat: parseFloat(response.data[i][0]), lng: parseFloat(response.data[i][1])})
+          }
+          this.setState({ path: path });
+        })
       }
     } else {
       this.setState({ operation: operation });
@@ -53,7 +60,7 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="8"> <SimpleMap ref="simpleMap" operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="8"> <SimpleMap ref="simpleMap" path={this.state.path} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="4"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} /> </Col>
           </Row>
         </Container>

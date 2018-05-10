@@ -1,5 +1,5 @@
 #!src/recommender-service/api
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
 import os
 import networkx as nx
@@ -30,20 +30,17 @@ loadGraph()
 def index():
     return "Hello, World!"
     
-@app.route('/test')
-def test():
-    shortest_path = nx.shortest_path(graph, source='274547', target='3759741031')
-    for index, item in enumerate(shortest_path):
-        shortest_path[index] = nodes[item]
-    return json.dumps(shortest_path)
-
 @app.route('/route/', methods=['GET'])
 def getRoute():
     startLat = request.args.get('startLat')
     startLng = request.args.get('startLng')
     destinationLat = request.args.get('destinationLat')
     destinationLng = request.args.get('destinationLng')
-    return jsonify({'startLat': startLat, 'startLng': startLng, 'destinationLat': destinationLat, 'destinationLng': destinationLng})
-
+    
+    shortest_path = nx.shortest_path(graph, source='274547', target='3759741031')
+    for index, item in enumerate(shortest_path):
+        shortest_path[index] = nodes[item]
+    return json.dumps(shortest_path)
+   
 if __name__ == '__main__':
     app.run(debug=True)

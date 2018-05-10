@@ -27,6 +27,9 @@ class SimpleMap extends Component {
       this.selectDestination = true;
       this.selectStart = false;
     }
+    if(nextProps.path && nextProps.path.length > 2){
+      this.setState({path:nextProps.path})
+    }
   }
 
   static defaultProps = {
@@ -65,7 +68,7 @@ class SimpleMap extends Component {
           yesIWantToUseGoogleMapApiInternals
         >
 
-        { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} /> }
+        { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} path={this.state.path}/> }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.destination} /> }
 
