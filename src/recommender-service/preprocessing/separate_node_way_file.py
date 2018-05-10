@@ -1,4 +1,5 @@
 import sys
+import os
 
 if len(sys.argv) > 2:
     print("Invalid argument list. Only 1 filename argument allowed.")
@@ -10,7 +11,7 @@ if len(sys.argv) == 2:
 else:
     # helpful when running manually e.g. using vs code with debugger
     filename = 'munich_small'
-    path = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/' 
+    path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map = path + filename + '.osm'
 map_nodes = path + filename + '.nodes'

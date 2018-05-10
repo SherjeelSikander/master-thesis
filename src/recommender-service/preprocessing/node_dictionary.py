@@ -2,6 +2,7 @@ import sys
 import xml.etree.ElementTree as ET
 import pickle
 import time
+import os
 
 if len(sys.argv) > 2:
     print("Invalid argument list. Only 1 filename argument allowed.")
@@ -12,8 +13,8 @@ if len(sys.argv) == 2:
     path = ''
 else:
     filename = 'munich_small'
-    path = 'D:/Documents/Thesis/master-thesis/src/recommender-service/map/'
-    
+    path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+
 map_nodes = path + filename + '.nodes'
 map_nodes_serialize = path + filename + '.nodes.serialize'
 node_dict = {}
