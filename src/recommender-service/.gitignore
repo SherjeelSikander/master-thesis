@@ -4,3 +4,4 @@ map/*.osm.gz
 map/*.osm/*.osm
 map/*.nodes
 map/*.ways
+map/*.serialize
