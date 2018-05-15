@@ -5,7 +5,7 @@ import networkx as nx
 
 filename = 'munich_large'
 path = os.path.dirname(__file__) + '\\map\\'
-map_nodes_serialize = path + filename + '.nodes.from_ways.serialize'
+map_nodes_serialize = path + filename + '.nodes.connected.serialize'
 map_ways_serialize = path + filename + '.ways.serialize'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))
