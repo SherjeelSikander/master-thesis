@@ -3,16 +3,8 @@ import sys
 import pickle
 import os
 
-if len(sys.argv) > 2:
-    print("Invalid argument list. Only 1 filename argument allowed.")
-    sys.exit(0)
-
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-    path = ''
-else:
-    filename = 'munich_small'
-    path = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\\map\\'
+filename = 'munich_small'
+path = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\\map\\'
 
 map_ways_serialize = path + filename + '.ways.serialize'
 
