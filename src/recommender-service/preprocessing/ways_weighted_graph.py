@@ -3,23 +3,19 @@ import sys
 import xml.etree.ElementTree as ET
 import pickle
 import os
+from geopy.distance import great_circle
 
-if len(sys.argv) > 2:
-    print("Invalid argument list. Only 1 filename argument allowed.")
-    sys.exit(0)
-
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-    path = ''
-else:
-    filename = 'munich_large'
-    path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+filename = 'munich_large'
+path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map_ways = path + filename + '.ways'
-map_ways_serialize = path + filename + '.ways.serialize'
+map_ways_edgelist = path + filename + '.ways.edgelist'
 map_nodes_serialize = path + filename + '.nodes.serialize'
 
 try:
+    node_dict = pickle.load(open(map_nodes_serialize, "rb"))
+    print("Nodes Loaded")
+
     mapWaysFile = open(map_ways, 'r', encoding="utf8") 
     graph = nx.Graph()
     wayBegin = False
@@ -43,17 +39,17 @@ try:
             if nodeCounter == 1:
                 prevNode = node.attrib['ref'] 
             elif nodeCounter > 1:
-                nextNode = node.attrib['ref']                 
-                # do not add edge weight (all edges have weight 1)
-                graph.add_edge(prevNode, nextNode, weight=6.6934, emission=3.2)
+                nextNode = node.attrib['ref'] 
+                # add edge weight: https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
+                distance = great_circle(node_dict[nextNode], node_dict[prevNode]).m
+                graph.add_edge(prevNode, nextNode, weight=distance, emission=0.5)
                 prevNode = nextNode
         else:
             print ("Faulty File")
     mapWaysFile.close()
-    # According to https://docs.python.org/3/library/pickle.html
-    # protocol version 4 added in Python 3.4 adds support for very large objects. (not backward compatible)
-    pickle.dump(graph, open(map_ways_serialize, "wb"), protocol=4)
-    print("Done")
+    
+    # Pickle gives memory error for large graphs. Hence we will try storing just the edge data
+    nx.write_edgelist(graph, map_ways_edgelist,data=['weight','emission'])
 except IOError:
     print ("Could not read file or file does not exist: ", map)
     sys.exit()
