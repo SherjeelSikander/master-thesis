@@ -1,3 +1,5 @@
+# Only for reference and testing. Not being used.
+ 
 import sys
 import xml.etree.ElementTree as ET
 import pickle
@@ -13,7 +15,7 @@ if len(sys.argv) == 2:
     path = ''
 else:
     filename = 'munich_small'
-    path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+    path = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\\map\\'
 
 map_ways = path + filename + '.ways'
 map_nodes_serialize_from_ways = path + filename + '.nodes.from_ways.serialize'
