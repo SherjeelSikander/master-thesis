@@ -27,3 +27,6 @@ Time to read dumped dictionary: 0.08 sec
 
 # Step 3
 Create a graph from ways file (e.g. munich_small.ways) and dump it (munich_small.ways.serialize).
+
+# Step 4
+Create a .nodes.connected.serialize file.

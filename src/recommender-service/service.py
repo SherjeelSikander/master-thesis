@@ -3,10 +3,10 @@ import os
 from math import hypot
 import networkx as nx
 
-filename = 'munich_large'
+filename = 'munich_small'
 path = os.path.dirname(__file__) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.connected.serialize'
-map_ways_serialize = path + filename + '.ways.serialize'
+map_ways_serialize = path + filename + '.ways.distance.serialize'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))
 print("Nodes Loaded")
@@ -33,7 +33,7 @@ def getShortestPath(startLat, startLng, endLat, endLng):
     endNode = getNearestNode(float(endLat), float(endLng))
     print(startNode, endNode)
 
-    shortest_path = nx.shortest_path(graph, source=startNode, target=endNode)
+    shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
     for index, item in enumerate(shortest_path):
         shortest_path[index] = node_dict[item]
 
