@@ -3,7 +3,7 @@ import os
 from math import hypot
 
 filename = 'munich_small'
-path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+path = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.serialize'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))

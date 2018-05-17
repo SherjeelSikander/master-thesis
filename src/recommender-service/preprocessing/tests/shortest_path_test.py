@@ -12,7 +12,7 @@ if len(sys.argv) == 2:
     path = ''
 else:
     filename = 'munich_small'
-    path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+    path = os.path.dirname(os.path.dirname(os.path.dirname(__file__))) + '\\map\\'
 
 map_ways_serialize = path + filename + '.ways.serialize'
 
