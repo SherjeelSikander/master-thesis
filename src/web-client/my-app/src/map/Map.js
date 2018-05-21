@@ -11,8 +11,10 @@ class Map extends Component {
     super();
     this.getOperation = this.getOperation.bind(this);
     this.getResult = this.getResult.bind(this);
+    this.getPathAlgorithm = this.getPathAlgorithm.bind(this);
     this.state = {
-      operation: MapOperations.operations.none
+      operation: MapOperations.operations.none,
+      algorithmId: 0
     };
   }
 
@@ -32,8 +34,8 @@ class Map extends Component {
         var state = this.refs.simpleMap.state;
         var localhost = 'http://127.0.0.1:5000/';
         console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
-
-        axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng)
+        console.log(state.algorithmId)
+        axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng+'&algorithmId='+this.state.algorithmId)
         .then(response => {
           var path = [];
           for (var i = 0; i < response.data.length; i++) {
@@ -52,6 +54,10 @@ class Map extends Component {
     this.refs.mapOperations.clearSelection();
   }
 
+  getPathAlgorithm(algorithmId){
+    this.setState({ algorithmId: algorithmId });
+  }
+
   render() {
     return (
       <div className="Map">
@@ -60,8 +66,9 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="8"> <SimpleMap ref="simpleMap" path={this.state.path} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
-            <Col xs="4"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} /> </Col>
+            <Col xs="12"> <SimpleMap ref="simpleMap" path={this.state.path} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="12"> &nbsp; </Col>
+            <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm}/> </Col>
           </Row>
         </Container>
       </div>
