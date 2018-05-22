@@ -17,9 +17,9 @@ def getRoute():
     startLng = request.args.get('startLng')
     destinationLat = request.args.get('destinationLat')
     destinationLng = request.args.get('destinationLng')
-    
-    shortest_path = service.getShortestPath(startLat, startLng, destinationLat, destinationLng)
+    algorithmId = request.args.get('algorithmId')
+    shortest_path = service.getShortestPath(startLat, startLng, destinationLat, destinationLng, algorithmId)
     return json.dumps(shortest_path)
    
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

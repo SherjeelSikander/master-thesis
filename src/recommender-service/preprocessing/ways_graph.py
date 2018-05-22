@@ -37,7 +37,7 @@ try:
             elif nodeCounter > 1:
                 nextNode = node.attrib['ref']                 
                 # do not add edge weight (all edges have weight 1)
-                graph.add_edge(prevNode, nextNode, weight=6.6934, emission=3.2)
+                graph.add_edge(prevNode, nextNode)
                 prevNode = nextNode
         else:
             print ("Faulty File")

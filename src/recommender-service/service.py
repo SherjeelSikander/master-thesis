@@ -2,17 +2,27 @@ import pickle
 import os
 from math import hypot
 import networkx as nx
+import sys
 
-filename = 'munich_small'
+filename = 'munich_large'
 path = os.path.dirname(__file__) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.connected.serialize'
-map_ways_serialize = path + filename + '.ways.distance.serialize'
+map_ways_serialize = path + filename + '.ways.serialize'
+map_ways_edgelist = path + filename + '.ways.edgelist'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))
 print("Nodes Loaded")
 
-graph = pickle.load(open(map_ways_serialize, "rb"))
-print("Graph Loaded")
+# graph = pickle.load(open(map_ways_serialize, "rb"))
+# print("Graph Loaded")
+
+try:
+    graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('emission',float)))
+    print("Graph Loaded")
+    print("Number of edges: ", graph.number_of_edges())
+except IOError:
+    print ("Error reading graph")
+    sys.exit()
 
 def getNearestNode(lat, lng):
     minDistanceNode = list(node_dict.keys())[0]
@@ -28,12 +38,22 @@ def getNearestNode(lat, lng):
     
     return minDistanceNode
 
-def getShortestPath(startLat, startLng, endLat, endLng):
+def getShortestPath(startLat, startLng, endLat, endLng, algorithmId):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
+    algorithmId = int(algorithmId)
+    
     print(startNode, endNode)
-
-    shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
+    print(algorithmId)
+    
+    if algorithmId == 0: # shortest path
+        try:
+            shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
+        except:
+            print("error")
+    elif algorithmId == 1: # least number of hops
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode)
+    
     for index, item in enumerate(shortest_path):
         shortest_path[index] = node_dict[item]
 
