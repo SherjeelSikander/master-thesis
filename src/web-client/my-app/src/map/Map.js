@@ -4,6 +4,7 @@ import SimpleMap from "./SimpleMap"
 import MapOperations from "./MapOperations"
 import { Container, Row, Col } from 'reactstrap'; 
 import axios from 'axios';
+import { withAlert } from 'react-alert'
 
 class Map extends Component {
 
@@ -40,6 +41,7 @@ class Map extends Component {
           console.log("Response:")
           console.log(response.data)
           if(response.status){
+              this.props.alert.error(response.data.description);
               console.log(response.data.description)
           }else {
             var path = [];
@@ -82,4 +84,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default withAlert(Map);
