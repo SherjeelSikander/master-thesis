@@ -34,14 +34,20 @@ class Map extends Component {
         var state = this.refs.simpleMap.state;
         var localhost = 'http://127.0.0.1:5000/';
         console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
-        console.log(state.algorithmId)
+        console.log("AlgorithmID: " + this.state.algorithmId)
         axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng+'&algorithmId='+this.state.algorithmId)
         .then(response => {
-          var path = [];
-          for (var i = 0; i < response.data.length; i++) {
-            path.push({lat: parseFloat(response.data[i][0]), lng: parseFloat(response.data[i][1])})
-          }
-          this.setState({ path: path });
+          console.log("Response:")
+          console.log(response.data)
+          if(response.status){
+              console.log(response.data.description)
+          }else {
+            var path = [];
+            for (var i = 0; i < response.data.length; i++) {
+              path.push({lat: parseFloat(response.data[i][0]), lng: parseFloat(response.data[i][1])})
+            }
+            this.setState({ path: path });
+          }          
         })
       }
     } else {

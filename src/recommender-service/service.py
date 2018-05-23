@@ -3,6 +3,7 @@ import os
 from math import hypot
 import networkx as nx
 import sys
+from geopy.distance import great_circle
 
 filename = 'munich_large'
 path = os.path.dirname(__file__) + '\\map\\'
@@ -37,6 +38,12 @@ def getNearestNode(lat, lng):
             minDistanceNode = node
     
     return minDistanceNode
+
+def isWithinRange(startLat, startLng, endLat, endLng, rangeInKm):
+    distance = great_circle((startLat, startLng), (endLat, endLng)).km
+    if distance > rangeInKm:
+        return False
+    return True
 
 def getShortestPath(startLat, startLng, endLat, endLng, algorithmId):
     startNode = getNearestNode(float(startLat), float(startLng))
