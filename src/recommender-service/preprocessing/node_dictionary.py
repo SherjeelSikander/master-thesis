@@ -4,7 +4,7 @@ import pickle
 import time
 import os
 
-filename = 'munich_small'
+filename = 'munich_center'
 path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map_nodes = path + filename + '.nodes'

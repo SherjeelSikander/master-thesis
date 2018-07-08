@@ -5,7 +5,7 @@ import pickle
 import os
 from geopy.distance import great_circle
 
-filename = 'munich_large'
+filename = 'munich_center'
 path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map_ways = path + filename + '.ways'

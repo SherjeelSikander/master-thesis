@@ -5,7 +5,7 @@ import networkx as nx
 import sys
 from geopy.distance import great_circle
 
-filename = 'munich_large'
+filename = 'munich_center'
 path = os.path.dirname(__file__) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.connected.serialize'
 map_ways_serialize = path + filename + '.ways.serialize'

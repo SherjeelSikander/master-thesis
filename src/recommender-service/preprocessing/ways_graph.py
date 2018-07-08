@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import pickle
 import os
 
-filename = 'munich_large'
+filename = 'munich_center'
 path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map_ways = path + filename + '.ways'
