@@ -40,7 +40,7 @@ class Map extends Component {
         .then(response => {
           console.log("Response:")
           console.log(response.data)
-          if(response.status){
+          if(response.data.status == 422){
               this.props.alert.error(response.data.description);
               console.log(response.data.description)
           }else {
