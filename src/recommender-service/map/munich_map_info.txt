@@ -24,5 +24,11 @@ Format: OSM XML gzip'd
 Extract latest from this URL
 https://extract.bbbike.org/?sw_lng=11.549&sw_lat=48.129&ne_lng=11.605&ne_lat=48.158&format=osm.gz&coords=11.549%2C48.143%7C11.555%2C48.137%7C11.563%2C48.134%7C11.576%2C48.131%7C11.588%2C48.129%7C11.6%2C48.132%7C11.605%2C48.144%7C11.604%2C48.153%7C11.595%2C48.157%7C11.585%2C48.157%7C11.566%2C48.158%7C11.556%2C48.15&city=Munich%20Center%20Map&lang=en
 
+--------Munich Center Small--------
+Download Link: 
+https://download.bbbike.org/osm/extract/planet_11.481,48.113_11.626,48.177.osm.gz
+Name of Area: Munich City Center
+Size: 11.6 MB
+
 ----------------
 https://download.bbbike.org/osm/extract/
