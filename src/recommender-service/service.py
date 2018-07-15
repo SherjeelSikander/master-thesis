@@ -45,25 +45,59 @@ def isWithinRange(startLat, startLng, endLat, endLng, rangeInKm):
         return False
     return True
 
-def getShortestPath(startLat, startLng, endLat, endLng, algorithmId):
+def getShortestPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
-    algorithmId = int(algorithmId)
     
     print(startNode, endNode)
-    print(algorithmId)
+    print("ShortestPath")
     
-    if algorithmId == 0: # shortest path
-        try:
-            shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
-        except:
-            print("error")
-    elif algorithmId == 1: # least number of hops
-        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode)
+    try:
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
+    except:
+        print("error")
     
     for index, item in enumerate(shortest_path):
         shortest_path[index] = node_dict[item]
 
-    return shortest_path
+    return [shortest_path]
     
+def getLeastNodesPath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    endNode = getNearestNode(float(endLat), float(endLng))
+    
+    print(startNode, endNode)
+    print("LeastNodesPath")
+    
+    try:
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode)
+    except:
+        print("error")
+    
+    for index, item in enumerate(shortest_path):
+        shortest_path[index] = node_dict[item]
+
+    return [shortest_path]
+
+def getCenterPassPath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    centerNode = getNearestNode((float(startLat)+float(endLat))/2, (float(startLng)+float(endLng))/2)
+    endNode = getNearestNode(float(endLat), float(endLng))
+    
+    print(startNode, centerNode, endNode)
+    print("CenterPassPath")
+    
+    try:
+        shortest_path_to_center = nx.shortest_path(graph, source=startNode, target=centerNode)
+        shortest_path_to_end = nx.shortest_path(graph, source=centerNode, target=endNode)
+    except:
+        print("error")
+    
+    for index, item in enumerate(shortest_path_to_center):
+        shortest_path_to_center[index] = node_dict[item]
+
+    for index, item in enumerate(shortest_path_to_end):
+        shortest_path_to_end[index] = node_dict[item]
+
+    return [shortest_path_to_center, shortest_path_to_end]
 #getShortestPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)

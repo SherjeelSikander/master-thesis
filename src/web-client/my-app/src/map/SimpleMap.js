@@ -27,8 +27,8 @@ class SimpleMap extends Component {
       this.selectDestination = true;
       this.selectStart = false;
     }
-    if(nextProps.path && nextProps.path.length > 2){
-      this.setState({path:nextProps.path})
+    if(nextProps.paths && nextProps.paths.length > 0){
+      this.setState({paths:nextProps.paths})
     }
   }
 
@@ -56,6 +56,21 @@ class SimpleMap extends Component {
   }
 
   render() {
+    if (this.state.mapLoaded && this.state.paths) {
+      var that = this;
+      var pathList = this.state.paths.map(function (path, index) {
+        return <Polyline key={index} map={that.state.map} maps={that.state.maps} path={path} />;
+      })
+      console.log("Done")
+    }
+    if (this.state.mapLoaded && this.state.paths && this.state.paths.length > 1) {
+      var that = this;
+      var intermediateMarkerList = this.state.paths.map(function (path, index) {
+        if(index == 0) return '';
+        var location = {lat: path[0].lat, lng: path[0].lng, title: "center marker"}
+        return <Marker key={index} map={that.state.map} maps={that.state.maps} marker={location} />;
+      })
+    }
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '70vh', width: '100%' }}>
@@ -67,9 +82,9 @@ class SimpleMap extends Component {
           onGoogleApiLoaded ={({ map, maps }) => { this.setState({ map: map, maps:maps, mapLoaded: true }) }}
           yesIWantToUseGoogleMapApiInternals
         >
-
-        { this.state.mapLoaded && <Polyline map={this.state.map} maps={this.state.maps} path={this.state.path}/> }
+        { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
+        { this.state.mapLoaded && intermediateMarkerList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.destination} /> }
 
         </GoogleMapReact>

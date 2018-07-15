@@ -44,11 +44,16 @@ class Map extends Component {
               this.props.alert.error(response.data.description);
               console.log(response.data.description)
           }else {
-            var path = [];
+            var paths = []
             for (var i = 0; i < response.data.length; i++) {
-              path.push({lat: parseFloat(response.data[i][0]), lng: parseFloat(response.data[i][1])})
+              var data = response.data[i]
+              var path = []
+              for (var j = 0; j < data.length; j++) {
+                path.push({lat: parseFloat(data[j][0]), lng: parseFloat(data[j][1])})
+              }
+              paths.push(path)
             }
-            this.setState({ path: path });
+            this.setState({ paths: paths });
           }          
         })
       }
@@ -74,7 +79,7 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="12"> <SimpleMap ref="simpleMap" path={this.state.path} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="12"> &nbsp; </Col>
             <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm}/> </Col>
           </Row>

@@ -47,7 +47,8 @@ class MapOperations extends Component {
 
   static algorithmTexts = {
     0: "Shortest Distance", 
-    1: "Least Hops"
+    1: "Least Hops",
+    2: "Center Pass"
   };
 
   selectDropdownValue(algorithmId, operationValue) {
@@ -78,6 +79,8 @@ class MapOperations extends Component {
                   active={this.state.algorithmId === 0}>{MapOperations.algorithmTexts[0]}</DropdownItem>
               <DropdownItem onClick={() => this.selectDropdownValue(1, "Least Hops")}
                   active={this.state.algorithmId === 1}>{MapOperations.algorithmTexts[1]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(2, "Center Pass")}
+                  active={this.state.algorithmId === 2}>{MapOperations.algorithmTexts[2]}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
         </Row>
