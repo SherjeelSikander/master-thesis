@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+  <Document>
+    <name>Attractions Munich</name>
+    <description><![CDATA[A map showing all attractions in Munich for my travel website, Destination Munich <br>http://www.destination-munich.com]]></description>
+    <Style id="icon-503-DB4436-normal">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1.1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>0</scale>
+      </LabelStyle>
+    </Style>
+    <Style id="icon-503-DB4436-highlight">
+      <IconStyle>
+        <color>ff3644db</color>
+        <scale>1.1</scale>
+        <Icon>
+          <href>http://www.gstatic.com/mapspro/images/stock/503-wht-blank_maps.png</href>
+        </Icon>
+        <hotSpot x="16" xunits="pixels" y="32" yunits="insetPixels"/>
+      </IconStyle>
+      <LabelStyle>
+        <scale>1.1</scale>
+      </LabelStyle>
+    </Style>
+    <StyleMap id="icon-503-DB4436">
+      <Pair>
+        <key>normal</key>
+        <styleUrl>#icon-503-DB4436-normal</styleUrl>
+      </Pair>
+      <Pair>
+        <key>highlight</key>
+        <styleUrl>#icon-503-DB4436-highlight</styleUrl>
+      </Pair>
+    </StyleMap>
+    <Folder>
+      <name>Untitled layer</name>
+      <Placemark>
+        <name><![CDATA[Marienplatz (St. Mary's Square)]]></name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/HBnWrqSuc77gzcgrevunX0utf_ExcEapUPsHeQDvPdGVUS9hCV7FRuc-eXCuAU7RsOIiflnQXKDahReN9LZ0X0S0LWe0pjWouvbkDQmAXQeTnOEllEZzT0mqFAIYQpqyJQ" height="200" width="auto" /><br><br>Read Destination Munich's review of Marienplatz (St. Mary's Square) (http://www.destination-munich.com/marienplatz.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/HBnWrqSuc77gzcgrevunX0utf_ExcEapUPsHeQDvPdGVUS9hCV7FRuc-eXCuAU7RsOIiflnQXKDahReN9LZ0X0S0LWe0pjWouvbkDQmAXQeTnOEllEZzT0mqFAIYQpqyJQ</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            11.575277,48.137182,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Neues Rathaus (New City Hall) and Glockenspiel</name>
+        <description><![CDATA[Read Destination Munich's review of the Neues Rathaus (New City Hall) and Glockenspiel (http://www.destination-munich.com/neues-rathaus.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.576135,48.137454,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Frauenkirche (Church of our Lady)</name>
+        <description><![CDATA[<img src="https://lh4.googleusercontent.com/e6o3reylowEpTAryXSpWxA2amDomKXqa3tnVJMmMxsdRX71gDPISyKICbEHtu12AfnJd4wM5N2asZ7z0BvQWa7kweGTHliiS21I3vpzJ69qi_fojVyzfJ6ytLlAxpg_a" height="200" width="auto" /><br><br>See Destination Munich's review of the Frauenkirche (Church of our Lady) (http://www.destination-munich.com/frauenkirche.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <ExtendedData>
+          <Data name="gx_media_links">
+            <value>https://lh4.googleusercontent.com/e6o3reylowEpTAryXSpWxA2amDomKXqa3tnVJMmMxsdRX71gDPISyKICbEHtu12AfnJd4wM5N2asZ7z0BvQWa7kweGTHliiS21I3vpzJ69qi_fojVyzfJ6ytLlAxpg_a</value>
+          </Data>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            11.573217,48.138456,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Viktualienmarkt</name>
+        <description><![CDATA[See Destination Munich's review of the Viktualienmarkt. (http://www.destination-munich.com/viktualienmarkt.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.576521,48.135177,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Munich City Museum (Münchener Stadtmuseum)</name>
+        <description><![CDATA[See Destination Munich's review of the Munich City Museum (Münchener Stadtmuseum) (http://www.destination-munich.com/munich-city-museum.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.572573,48.13517,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Deutsches Jagd- und Fischermuseum (German Hunting and Fishing Museum)</name>
+        <description><![CDATA[See Destination Munich's review of the Deutsches Jagd- und Fischermuseum (German Hunting and Fishing Museum) (http://www.destination-munich.com/german-hunting-and-fishing-museum.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.5715,48.138285,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Asamkirche (Asam Church)</name>
+        <description><![CDATA[See Destination Munich's review of the Asamkirche (Asam Church) (http://www.destination-munich.com/asamkirche.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.569591,48.135191,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Altes Rathaus (Old City Hall)</name>
+        <description><![CDATA[See Destination Munich's review of the Altes Rathaus (Old City Hall) (http://www.destination-munich.com/altes-rathaus.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.576854,48.136802,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Michaelskirche (Church of St Michael)</name>
+        <description><![CDATA[See Destination Munich's review of the Michaelskirche (Church of St Michael) (http://www.destination-munich.com/michaelskirche.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.570363,48.138657,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Sendlinger Tor (Sendling Gate)</name>
+        <description><![CDATA[See Destination Munich's review of the Sendlinger Tor (Sendling Gate) (http://www.destination-munich.com/sendlinger-tor.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.567681,48.13411,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Juliet Statue </name>
+        <description><![CDATA[See Destination Munich's review of the Juliet Statue  (http://www.destination-munich.com/juliet-statue.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.576993,48.136666,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bürgersaalkirche (Bürgersaal church)</name>
+        <description><![CDATA[See Destination Munich's review of the Bürgersaalkirche (Bürgersaal church) (http://www.destination-munich.com/buergersaal-church.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.568099,48.138779,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hofbräuhaus</name>
+        <description><![CDATA[See Destination Munich's review of the Hofbräuhaus (http://www.destination-munich.com/hofbrauhaus.html).]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.580126,48.137912,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Munich Residenz</name>
+        <description><![CDATA[See Destination Munich's review of the Munich Residenz (http://www.destination-munich.com/munich-residenz.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.577895,48.140411,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Odeonsplatz</name>
+        <description><![CDATA[See Destination Munich's review of Odeonsplatz (http://www.destination-munich.com/odeonsplatz.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.577444,48.142201,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name><![CDATA[Feldherrnhalle (Field Marshall's Hall)]]></name>
+        <description><![CDATA[See Destination Munich's review of the Feldherrnhalle (Field Marshall's Hall) (http://www.destination-munich.com/feldherrnhalle.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.577337,48.1418,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Hofgarten (Royal Garden)</name>
+        <description><![CDATA[See Destination Munich's review of the Hofgarten (Royal Garden) (http://www.destination-munich.com/hofgarten.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.57974,48.143003,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Theatinerkirche St Cajetan (Theatine Church)</name>
+        <description><![CDATA[See Destination Munich's review of the Theatinerkirche St Cajetan (Theatine Church) (http://www.destination-munich.com/Theatinerkirche-St-Cajetan.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.576951,48.142036,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Literaturhaus (House of Literature) </name>
+        <description><![CDATA[See Destination Munich's review of the Literaturhaus (House of Literature)  (http://www.destination-munich.com/literaturhaus.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.575062,48.141871,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Egyptian Art Museum</name>
+        <description><![CDATA[See Destination Munich's review of the Egyptian Art Museum (http://www.destination-munich.com/egyptian-art-museum.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.580513,48.141692,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>National Theatre</name>
+        <description><![CDATA[See Destination Munich's review of the National Theatre (http://www.destination-munich.com/national-theatre.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.57886,48.139903,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Alter Hof</name>
+        <description><![CDATA[See Destination Munich's review of the Alter Hof (http://www.destination-munich.com/alter-hof.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.578174,48.138263,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Alte Pinakothek</name>
+        <description><![CDATA[See Destination Munich's review of the The Alte Pinakothek (http://www.destination-munich.com/alte-pinakothek.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.569955,48.148279,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Pinakothek der Moderne</name>
+        <description><![CDATA[See Destination Munich's review of the Pinakothek der Moderne (http://www.destination-munich.com/pinakothek-der-moderne.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.571543,48.14742,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Neue Pinakothek</name>
+        <description>Read the review of the Neue Pinakothek (http://www.destination-munich.com/neue-pinakothek.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.571565,48.149495,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Konigsplatz</name>
+        <description>Konigsplatz (http://www.destination-munich.com/konigsplatz.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.564763,48.145916,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>State Antiques Collection</name>
+        <description>State Antiques Collection (http://www.destination-munich.com/antikensammlungen.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.565042,48.145301,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Glyptothek</name>
+        <description>Glyptothek (http://www.destination-munich.com/glyptothek.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.565578,48.146246,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Karolinenplatz (Caroline’s Square) </name>
+        <description>Karolinenplatz (Caroline’s Square) (http://www.destination-munich.com/karolinenplatz.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.569161,48.144685,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Amerikahaus  </name>
+        <description>Amerikahaus (http://www.destination-munich.com/amerikahaus.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.56841,48.144499,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bavarian Collection of Graphic Arts</name>
+        <description>Bavarian Collection of Graphic Arts (http://www.destination-munich.com/staatliche-graphische-sammlung.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.566329,48.14457,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Deutsches Museum</name>
+        <description>Deutsches Museum (http://www.destination-munich.com/deutsches-museum.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.585662,48.131482,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Valentin Karlstadt Museum</name>
+        <description><![CDATA[Valentin<br>                  Karlstadt Museum (http://www.destination-munich.com/valentin-karlstadt-museum.html)]]></description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.582015,48.134848,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Isartor</name>
+        <description>Isartor (http://www.destination-munich.com/isartor.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.582444,48.134733,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Museum Villa Stuck</name>
+        <description>Museum Villa Stuck (http://www.destination-munich.com/museum-villa-stuck.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.599503,48.140561,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Angel of Peace</name>
+        <description>Angel of Peace (http://www.destination-munich.com/Friedensengel.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.596992,48.141306,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Nymphenburg Palace </name>
+        <description>Nymphenburg Palace (http://www.destination-munich.com/nymphenburg-palace.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.503029,48.158471,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>BMW Welt and Museum</name>
+        <description>BMW Welt and Museum (http://www.destination-munich.com/BMW-welt.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.556952,48.176761,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Dachau Concentration Camp Memorial</name>
+        <description>Dachau Concentration Camp Memorial (http://www.destination-munich.com/dachau-concentration-camp.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.469769,48.267512,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name> Olympic Park</name>
+        <description>Olympic Park (http://www.destination-munich.com/olympic-park.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.552682,48.173212,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Allianz Arena </name>
+        <description>Allianz Arena (http://www.destination-munich.com/allianz-arena.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.625509,48.21964,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bavaria Filmstadt</name>
+        <description>Bavaria Filmstadt (http://www.destination-munich.com/bavaria-filmstadt.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.549807,48.066494,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bavaria Statue </name>
+        <description>Bavaria Statue (http://www.destination-munich.com/bavaria-statue.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.545773,48.130838,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Blutenburg Castle </name>
+        <description>Blutenburg Castle (http://www.destination-munich.com/blutenburg.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.456423,48.162708,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Zirkus Krone</name>
+        <description>Zirkus Krone (http://www.destination-munich.com/zirkus-krone.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.549957,48.14553,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>The Englischer Garten </name>
+        <description>The Englischer Garten (http://www.destination-munich.com/englischer-garten.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.588345,48.147878,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>LMU uni and White Rose museum</name>
+        <description>LMU uni and White Rose museum</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.580448,48.150827,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Siegestor</name>
+        <description>Siegestor (http://www.destination-munich.com/siegestor.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.582208,48.152602,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Haus der Kunst</name>
+        <description>Haus der Kunst (http://www.destination-munich.com/haus-der-kunst.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.585426,48.144384,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Ludwigskirche</name>
+        <description>Ludwigskirche (http://www.destination-munich.com/ludwigskirche.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.580942,48.149195,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <name>Bayerische Staatsbibliothek (Bavarian State Library)</name>
+        <description>Bayerische Staatsbibliothek (Bavarian State Library) (http://www.destination-munich.com/bayerische-staatsbibliothek.html)</description>
+        <styleUrl>#icon-503-DB4436</styleUrl>
+        <Point>
+          <coordinates>
+            11.580234,48.147627,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+  </Document>
+</kml>

@@ -29,6 +29,9 @@ def getShortestRoute():
         elif algorithmId == 2: # pass through the center
             shortest_path = service.getCenterPassPath(startLat, startLng, destinationLat, destinationLng)
             return json.dumps(shortest_path)
+        elif algorithmId == 3: # scenic route
+            shortest_path = service.getScenicPath(startLat, startLng, destinationLat, destinationLng)
+            return json.dumps(shortest_path)
     else:
         return json.dumps({"status": 422, "description": "Start and End point should be within 5km."})
 

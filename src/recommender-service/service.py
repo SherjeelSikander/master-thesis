@@ -4,8 +4,9 @@ from math import hypot
 import networkx as nx
 import sys
 from geopy.distance import great_circle
+import candidates as candidate_selection
 
-filename = 'munich_center'
+filename = 'munich_attractions_area'
 path = os.path.dirname(__file__) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.connected.serialize'
 map_ways_serialize = path + filename + '.ways.serialize'
@@ -13,9 +14,6 @@ map_ways_edgelist = path + filename + '.ways.edgelist'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))
 print("Nodes Loaded")
-
-# graph = pickle.load(open(map_ways_serialize, "rb"))
-# print("Graph Loaded")
 
 try:
     graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('emission',float)))
@@ -81,14 +79,16 @@ def getLeastNodesPath(startLat, startLng, endLat, endLng):
 
 def getCenterPassPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
-    centerNode = getNearestNode((float(startLat)+float(endLat))/2, (float(startLng)+float(endLng))/2)
+    centerNode = getNearestNode((float(startLat)+float(endLat)+float(endLat))/3, (float(startLng)+float(endLng)+float(endLng))/3)
+    centerNode2 = getNearestNode((float(startLat)+float(endLat))/2, (float(startLng)+float(endLng))/2)
     endNode = getNearestNode(float(endLat), float(endLng))
     
     print(startNode, centerNode, endNode)
     print("CenterPassPath")
     
     try:
-        shortest_path_to_center = nx.shortest_path(graph, source=startNode, target=centerNode)
+        shortest_path_to_center = nx.shortest_path(graph, source=startNode, target=centerNode2)
+        shortest_path_to_center2 = nx.shortest_path(graph, source=centerNode2, target=centerNode)
         shortest_path_to_end = nx.shortest_path(graph, source=centerNode, target=endNode)
     except:
         print("error")
@@ -96,8 +96,20 @@ def getCenterPassPath(startLat, startLng, endLat, endLng):
     for index, item in enumerate(shortest_path_to_center):
         shortest_path_to_center[index] = node_dict[item]
 
+    for index, item in enumerate(shortest_path_to_center2):
+        shortest_path_to_center2[index] = node_dict[item]
+
     for index, item in enumerate(shortest_path_to_end):
         shortest_path_to_end[index] = node_dict[item]
 
-    return [shortest_path_to_center, shortest_path_to_end]
+    return [shortest_path_to_center, shortest_path_to_center2, shortest_path_to_end]
 #getShortestPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
+
+def getScenicPath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    endNode = getNearestNode(float(endLat), float(endLng))
+    
+    print(startNode, endNode)
+    print("ScenicPath")
+    
+    return []
