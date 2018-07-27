@@ -10,7 +10,7 @@ if len(sys.argv) == 2:
     path = ''
 else:
     # helpful when running manually e.g. using vs code with debugger
-    filename = 'munich_small'
+    filename = 'munich_attractions_area'
     path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
 map = path + filename + '.osm'

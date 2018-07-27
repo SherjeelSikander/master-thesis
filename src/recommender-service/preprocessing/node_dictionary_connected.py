@@ -3,7 +3,7 @@ import sys
 import pickle
 import os
 
-filename = 'munich_center'
+filename = 'munich_attractions_area'
 known_connected_node_munich = '612518275'
 path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
 
