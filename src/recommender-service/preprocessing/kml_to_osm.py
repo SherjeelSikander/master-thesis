@@ -15,12 +15,14 @@ placemarks = root[0][5]
 try:
     mapAttractionsFile = open(attractions_extracted, 'w', encoding="utf8")
     mapAttractionsFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
+    mapAttractionsFile.write('<Attractions>\n')
     for x in range(1, len(placemarks)):
         print (placemarks[x][0].text.strip())
         coordinates = placemarks[x][len(placemarks[x])-1][0].text.strip().split(',')
         print (coordinates[0], coordinates[1])
         print('<attraction name="'+ placemarks[x][0].text.strip() + '" lat="'+ coordinates[1] +'" lon="'+ coordinates[0] +'"/>')
         mapAttractionsFile.write('<attraction name="'+ placemarks[x][0].text.strip() + '" lat="'+ coordinates[1] +'" lon="'+ coordinates[0] +'"/>\n')
+    mapAttractionsFile.write('</Attractions>')
     mapAttractionsFile.close()
     print("Attractions File Created.")
         
