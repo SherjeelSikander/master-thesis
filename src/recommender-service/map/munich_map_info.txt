@@ -30,5 +30,14 @@ https://download.bbbike.org/osm/extract/planet_11.481,48.113_11.626,48.177.osm.g
 Name of Area: Munich City Center
 Size: 11.6 MB
 
+--------Munich Attractions Small--------
+Download Link: 
+https://download.bbbike.org/osm/extract/planet_11.558_48.13_dbf46c64.osm.gz
+Name of Area: AttractionsMunich
+Size: 2.5 MB
+
+Extract latest from this URL
+https://extract.bbbike.org/?sw_lng=11.558&sw_lat=48.129&ne_lng=11.607&ne_lat=48.157&format=osm.gz&coords=11.558%2C48.13%7C11.607%2C48.129%7C11.607%2C48.156%7C11.56%2C48.157&city=AttractionsMunich&lang=en
+
 ----------------
 https://download.bbbike.org/osm/extract/
