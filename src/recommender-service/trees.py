@@ -8,9 +8,11 @@ treeSummaryFilePath = path + filename + '.trees_summary'
 trees = []
 
 try:
+    location = []
     treeSummaryFile = open(treeSummaryFilePath, 'r', encoding="utf8")
     for line in treeSummaryFile:
-        trees.append(line.rstrip().split(' '))
+        location = line.rstrip().split(' ')
+        trees.append([float(location[0]), float(location[1])])
     treeSummaryFile.close()
         
 except IOError:

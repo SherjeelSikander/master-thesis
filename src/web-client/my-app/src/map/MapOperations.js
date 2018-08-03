@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Row, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Button, ButtonGroup, Row, Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 class MapOperations extends Component {
 
@@ -9,11 +9,13 @@ class MapOperations extends Component {
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
     this.selectDropdownValue = this.selectDropdownValue.bind(this);
-    
+    this.onCheckboxBtnClick = this.onShowAttributeSelected.bind(this);
+
     this.state = { 
       rSelected: MapOperations.operations.none, 
       dropdownOpen: false,
-      algorithmId: 0
+      algorithmId: 0,
+      attributeSelected: []
     };
   }
 
@@ -48,7 +50,20 @@ class MapOperations extends Component {
   static algorithmTexts = {
     0: "Shortest Distance", 
     1: "Least Hops",
-    2: "Center Pass"
+    2: "Center Pass",
+    3: "Scenic: Trees"
+  };
+
+  static attributeTexts = {
+    0: "Trees", 
+    1: "Cleanliness",
+    2: "Air Pollution"
+  };
+
+  static attributeIds = {
+    trees: 0, 
+    cleanliness: 1,
+    airpollution: 2
   };
 
   selectDropdownValue(algorithmId, operationValue) {
@@ -56,6 +71,19 @@ class MapOperations extends Component {
     this.props.sendPathAlgorithm(algorithmId);
   }
   
+  onShowAttributeSelected(selected) {
+    const index = this.state.attributeSelected.indexOf(selected);
+    if (index < 0) {
+      console.log("Selected " + selected)
+      this.state.attributeSelected.push(selected);
+      this.props.sendAttributeSelection(selected, MapOperations.attributeTexts[selected], true);
+    } else {
+      console.log("Unselected " + selected)
+      this.state.attributeSelected.splice(index, 1);
+      this.props.sendAttributeSelection(selected, MapOperations.attributeTexts[selected], false);
+    }
+    this.setState({ attributeSelected: [...this.state.attributeSelected] });
+  }
 
   render() {
     return (
@@ -81,8 +109,18 @@ class MapOperations extends Component {
                   active={this.state.algorithmId === 1}>{MapOperations.algorithmTexts[1]}</DropdownItem>
               <DropdownItem onClick={() => this.selectDropdownValue(2, "Center Pass")}
                   active={this.state.algorithmId === 2}>{MapOperations.algorithmTexts[2]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(3, "Scenic: Trees")}
+                  active={this.state.algorithmId === 3}>{MapOperations.algorithmTexts[3]}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
+          &nbsp;
+          <ButtonGroup>
+            <Button color="success" onClick={() => this.onShowAttributeSelected(0)} active={this.state.attributeSelected.includes(0)}>{MapOperations.attributeTexts[0]}</Button>
+            &nbsp;
+            <Button color="success" onClick={() => this.onShowAttributeSelected(1)} active={this.state.attributeSelected.includes(1)}>{MapOperations.attributeTexts[1]}</Button>
+            &nbsp;
+            <Button color="success" onClick={() => this.onShowAttributeSelected(2)} active={this.state.attributeSelected.includes(2)}>{MapOperations.attributeTexts[2]}</Button>
+          </ButtonGroup>
         </Row>
 
         <Row>

@@ -13,6 +13,7 @@ class Map extends Component {
     this.getOperation = this.getOperation.bind(this);
     this.getResult = this.getResult.bind(this);
     this.getPathAlgorithm = this.getPathAlgorithm.bind(this);
+    this.getAttributeSelection = this.getAttributeSelection.bind(this);
     this.state = {
       operation: MapOperations.operations.none,
       algorithmId: 0
@@ -71,6 +72,24 @@ class Map extends Component {
     this.setState({ algorithmId: algorithmId });
   }
 
+  getAttributeSelection(attributeId, attributeText, show){
+    console.log(attributeId + " " + attributeText + " " + show);
+    var localhost = 'http://127.0.0.1:5000/';
+    if(attributeId === MapOperations.attributeIds.trees){
+      if(show == true){
+        console.log("Show trees")
+        axios.get(localhost + 'trees/')
+        .then(response => {
+          console.log("Response:")
+          console.log(response.data)
+          this.setState({ trees: response.data });      
+        })          
+      } else if (show == false){
+          console.log("Hide trees")
+      }
+    }
+  }
+
   render() {
     return (
       <div className="Map">
@@ -79,9 +98,9 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} trees={this.state.trees} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="12"> &nbsp; </Col>
-            <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm}/> </Col>
+            <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm} sendAttributeSelection={this.getAttributeSelection}/> </Col>
           </Row>
         </Container>
       </div>

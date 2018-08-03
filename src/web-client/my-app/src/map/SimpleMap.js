@@ -30,6 +30,9 @@ class SimpleMap extends Component {
     if(nextProps.paths && nextProps.paths.length > 0){
       this.setState({paths:nextProps.paths})
     }
+    if(nextProps.trees && nextProps.trees.length > 0){
+      this.setState({trees:nextProps.trees})
+    }
   }
 
   static defaultProps = {
@@ -39,7 +42,8 @@ class SimpleMap extends Component {
     },
     zoom: 12,
     greenMarker: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
-    redMarker: "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+    redMarker: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+    tree: "https://maps.google.com/mapfiles/ms/micons/tree.png"
   };
 
   onClick = ({x, y, lat, lng, event}) => {
@@ -71,6 +75,13 @@ class SimpleMap extends Component {
         return <Marker key={index} map={that.state.map} maps={that.state.maps} marker={location} />;
       })
     }
+    if (this.state.mapLoaded && this.state.trees && this.state.trees.length > 0){
+      var that = this;
+      var treeList = this.state.trees.map(function(tree, index){
+        var location = {lat: tree[0], lng: tree[1], icon: that.props.tree}
+        return <Marker key={'tree'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
+      })
+    }
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '70vh', width: '100%' }}>
@@ -82,6 +93,7 @@ class SimpleMap extends Component {
           onGoogleApiLoaded ={({ map, maps }) => { this.setState({ map: map, maps:maps, mapLoaded: true }) }}
           yesIWantToUseGoogleMapApiInternals
         >
+        { this.state.mapLoaded && treeList }
         { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
         { this.state.mapLoaded && intermediateMarkerList }
