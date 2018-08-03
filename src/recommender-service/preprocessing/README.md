@@ -32,4 +32,7 @@ Create a graph from ways file (e.g. munich_small.ways) and dump it (munich_small
 Create a .nodes.connected.serialize file.
 
 # Step 5 ways_weighted_graph.py
-Creates a .ways.edgelist file.
+Creates a .ways.edgelist file with distance added as weight.
+
+# Step 6 ways_weighted_graph_attributes.py
+Creates a .ways.edgelist file with attributes added to edges.
