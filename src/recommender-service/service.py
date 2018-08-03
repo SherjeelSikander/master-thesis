@@ -16,7 +16,7 @@ node_dict = pickle.load(open(map_nodes_serialize, "rb"))
 print("Nodes Loaded")
 
 try:
-    graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('emission',float)))
+    graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('tree',float),('clean',float),('pollution',float)))
     print("Graph Loaded")
     print("Number of edges: ", graph.number_of_edges())
 except IOError:
@@ -42,7 +42,7 @@ def isWithinRange(startLat, startLng, endLat, endLng, rangeInKm):
     if distance > rangeInKm:
         return False
     return True
-
+    
 def getShortestPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
@@ -109,7 +109,18 @@ def getScenicPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
     
+    candidateNodes = getCandidateNodes(5)
+
     print(startNode, endNode)
     print("ScenicPath")
     
     return []
+
+def getCandidateNodes(numberOfCandidates):
+    candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
+    candidateNodes = []
+    for x in range(0, numberOfCandidates):
+        candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
+    return candidateNodes
+
+#getScenicPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)

@@ -24,5 +24,3 @@ def getRandomCandidates(numberOfRandoms):
         selectedAttractions.append((attractions[randomIndexes[x]].attrib['name'], attractions[randomIndexes[x]].attrib['lat'], attractions[randomIndexes[x]].attrib['lon']))
 
     return selectedAttractions
-
-getRandomCandidates(5)
