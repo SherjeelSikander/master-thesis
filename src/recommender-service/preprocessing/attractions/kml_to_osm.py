@@ -2,7 +2,7 @@ import sys
 import os
 import xml.etree.ElementTree as ET
 
-path = os.path.dirname(__file__) + '\\attractions\\'
+path = os.path.dirname(__file__)
 filename = 'attractions_munich'
 attractions = path + filename + '.kml'
 attractions_extracted = path + filename + '.attractions'
