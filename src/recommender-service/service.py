@@ -5,6 +5,7 @@ import networkx as nx
 import sys
 from geopy.distance import great_circle
 import candidates as candidate_selection
+import trees
 
 filename = 'munich_attractions_area'
 path = os.path.dirname(__file__) + '\\map\\'
@@ -123,4 +124,8 @@ def getCandidateNodes(numberOfCandidates):
         candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
     return candidateNodes
 
+def getTreeLocations():
+    treeLocations = trees.getAllTreeLocations()
+    return treeLocations
+getTreeLocations()
 #getScenicPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)

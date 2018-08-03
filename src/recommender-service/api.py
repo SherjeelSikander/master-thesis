@@ -35,5 +35,10 @@ def getShortestRoute():
     else:
         return json.dumps({"status": 422, "description": "Start and End point should be within 5km."})
 
+@app.route('/trees/', methods=['GET'])
+def getTreeLocations():
+    trees = service.getTreeLocations()
+    return json.dumps(trees)
+
 if __name__ == '__main__':
     app.run(debug=False)
