@@ -42,14 +42,15 @@ try:
                 nextNode = node.attrib['ref'] 
                 # add edge weight: https://stackoverflow.com/questions/19412462/getting-distance-between-two-points-based-on-latitude-longitude
                 distance = great_circle(node_dict[nextNode], node_dict[prevNode]).m
-                graph.add_edge(prevNode, nextNode, weight=distance, emission=0.5)
+                graph.add_edge(prevNode, nextNode, weight=distance, trees=0, clean=0, pollution=0)
                 prevNode = nextNode
         else:
             print ("Faulty File")
     mapWaysFile.close()
     
     # Pickle gives memory error for large graphs. Hence we will try storing just the edge data
-    nx.write_edgelist(graph, map_ways_edgelist,data=['weight','emission'])
+    nx.write_edgelist(graph, map_ways_edgelist,data=['weight','trees', 'clean', 'pollution'])
+    print("Edge list created.")
 except IOError:
     print ("Could not read file or file does not exist: ", map)
     sys.exit()
