@@ -5,38 +5,52 @@ import sys
 import networkx as nx
 
 filename = 'munich_attractions_area'
-path = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
-print("=")
-print(path)
 
-map_nodes_serialize = path + filename + '.nodes.connected.serialize'
-map_ways_serialize = path + filename + '.ways.serialize'
-map_ways_edgelist = path + filename + '.ways.edgelist'
+mapPath = os.path.dirname(os.path.dirname(__file__)) + '\\map\\'
+map_nodes_serialize = mapPath + filename + '.nodes.connected.serialize'
+map_ways_serialize = mapPath + filename + '.ways.serialize'
+map_ways_edgelist = mapPath + filename + '.ways.edgelist'
 
-node_dict = pickle.load(open(map_nodes_serialize, "rb"))
-print("Nodes Loaded")
+treePath = os.path.dirname(__file__) + '\\trees\\'
+treeSummaryFilePath = treePath + filename + '.trees_summary'
 
-try:
-    graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('tree',float),('clean',float),('pollution',float)))
-    print("Graph Loaded")
-    print("Number of edges: ", graph.number_of_edges())
-except IOError:
-    print ("Error reading graph")
-    sys.exit()
+map_ways_weighted_edgelist = mapPath + filename + '.ways.weighted.edgelist'
+
+node_dict = []
+graph = []
+trees = []
 
 def assignWeights():
-    mapPollutionToEdges()
-    mapCleanlinessToEdges()
+    loadNodes()
+    loadGraph()
+    loadTrees()
+
     mapTreesToEdges()
+    writeGraph()
+    mapPollutionToEdge(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
+    #mapPollutionToEdges()
+    #mapCleanlinessToEdges()
 
-def mapPollutionToEdges():
-    print("map Pollution to edges")
+########### HELPER FUNCTIONS ###########
+def writeGraph():
+    global graph
+    nx.write_edgelist(graph, map_ways_weighted_edgelist, data=['weight','trees', 'clean', 'pollution'])
+    print("Weighted edgelist written")
 
-def mapTreesToEdges():
-    print("map Trees to edges")
+def loadNodes():
+    global node_dict
+    node_dict = pickle.load(open(map_nodes_serialize, "rb"))
+    print("Nodes Loaded")
 
-def mapCleanlinessToEdges():
-    print("map cleanliness to edges")
+def loadGraph():
+    global graph
+    try:
+        graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('trees',float),('clean',float),('pollution',float)))
+        print("Graph Loaded")
+        print("Number of edges: ", graph.number_of_edges())
+    except IOError:
+        print ("Error reading graph")
+        sys.exit()
 
 def getNearestNode(lat, lng):
     minDistanceNode = list(node_dict.keys())[0]
@@ -69,6 +83,40 @@ def getShortestDistancePath(startLat, startLng, endLat, endLng):
 
     return [shortest_path]
 
+########### MAPPING TREES ###########  
+def loadTrees():
+    global trees
+    try:
+        location = []
+        treeSummaryFile = open(treeSummaryFilePath, 'r', encoding="utf8")
+        for line in treeSummaryFile:
+            location = line.rstrip().split(' ')
+            trees.append([float(location[0]), float(location[1])])
+        treeSummaryFile.close()
+            
+    except IOError:
+        print ("Could not read file or file does not exist: ", treeSummaryFile)
+        sys.exit()
+
+def mapTreesToEdges():
+    print("mapping trees to edges")
+    for idx, tree in enumerate(trees):
+        if idx % 100 == 0:
+            print(idx*100/len(trees))
+        mapTreeToEdge(tree[0], tree[1])
+    print("mapped trees to edges")
+
+def mapTreeToEdge(lat, lng):
+    global graph
+    nearestNode = getNearestNode(float(lat), float(lng))
+    for neighbor in graph[nearestNode]:
+        graph[nearestNode][neighbor]['trees'] = graph[nearestNode][neighbor]['trees'] + 1
+    # find all edges connecting to the node
+
+########### MAPPING POLLUTION ###########
+def mapPollutionToEdges():
+    print("map Pollution to edges")
+
 def mapPollutionToEdge(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
@@ -91,11 +139,9 @@ def mapPollutionToEdge(startLat, startLng, endLat, endLng):
     
     print ("Done")
 
-mapPollutionToEdge(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
-
-def mapTreesToEdge(lat, lng):
-    nearestNode = getNearestNode(float(lat), float(lng))
-    # find all edges connecting to the node
+########### MAPPING CLEANLINESS ###########
+def mapCleanlinessToEdges():
+    print("map cleanliness to edges")
 
 def mapCleanlinessToEdge(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
@@ -112,3 +158,5 @@ def mapCleanlinessToEdge(startLat, startLng, endLat, endLng):
     print(shortest_path)
     # Get edges between all the nodes of the shortest path
     # Assign the weight value to each edge accordingly
+
+assignWeights()
