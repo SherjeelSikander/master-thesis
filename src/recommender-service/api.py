@@ -29,7 +29,10 @@ def getShortestRoute():
         elif algorithmId == 2: # pass through the center
             shortest_path = service.getCenterPassPath(startLat, startLng, destinationLat, destinationLng)
             return json.dumps(shortest_path)
-        elif algorithmId == 3: # scenic route
+        elif algorithmId == 3: # tree route
+            shortest_path = service.getScenicTreePath(startLat, startLng, destinationLat, destinationLng)
+            return json.dumps(shortest_path)
+        elif algorithmId == 4: # scenic route
             shortest_path = service.getScenicPath(startLat, startLng, destinationLat, destinationLng)
             return json.dumps(shortest_path)
     else:

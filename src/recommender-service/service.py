@@ -12,12 +12,13 @@ path = os.path.dirname(__file__) + '\\map\\'
 map_nodes_serialize = path + filename + '.nodes.connected.serialize'
 map_ways_serialize = path + filename + '.ways.serialize'
 map_ways_edgelist = path + filename + '.ways.edgelist'
+map_weighted_ways_edgelist = path + filename + '.ways.weighted.edgelist'
 
 node_dict = pickle.load(open(map_nodes_serialize, "rb"))
 print("Nodes Loaded")
 
 try:
-    graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('tree',float),('clean',float),('pollution',float)))
+    graph = nx.read_edgelist(map_weighted_ways_edgelist, nodetype=str, data=(('weight',float),('trees',float),('clean',float),('pollution',float)))
     print("Graph Loaded")
     print("Number of edges: ", graph.number_of_edges())
 except IOError:
@@ -117,6 +118,32 @@ def getScenicPath(startLat, startLng, endLat, endLng):
     
     return []
 
+def getScenicTreePath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    endNode = getNearestNode(float(endLat), float(endLng))
+    
+    print(startNode, endNode)
+    print("Scenic Tree Path")
+    
+    try:
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeWeight)
+    except:
+        print("error")
+    
+    for index, item in enumerate(shortest_path):
+        shortest_path[index] = node_dict[item]
+
+    return [shortest_path]
+
+#The function must accept exactly three positional arguments: the two endpoints of an edge and 
+# the dictionary of edge attributes for that edge. The function must return a number.
+def edgeWeight(startEdge, endEdge, edgeAttributes):
+    if edgeAttributes['trees'] == 0:
+        treesWeight = edgeAttributes['weight'] * 3
+    else:
+        treesWeight = edgeAttributes['weight'] / (edgeAttributes['trees']) 
+    return edgeAttributes['weight'] + treesWeight
+    
 def getCandidateNodes(numberOfCandidates):
     candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
     candidateNodes = []
