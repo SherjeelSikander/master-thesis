@@ -6,6 +6,7 @@ import sys
 from geopy.distance import great_circle
 import candidates as candidate_selection
 import trees
+import airpollution
 
 filename = 'munich_attractions_area'
 path = os.path.dirname(__file__) + '\\map\\'
@@ -139,9 +140,9 @@ def getScenicTreePath(startLat, startLng, endLat, endLng):
 # the dictionary of edge attributes for that edge. The function must return a number.
 def edgeWeight(startEdge, endEdge, edgeAttributes):
     if edgeAttributes['trees'] == 0:
-        treesWeight = edgeAttributes['weight'] * 3
+        treesWeight = edgeAttributes['weight'] * 4
     else:
-        treesWeight = edgeAttributes['weight'] / (edgeAttributes['trees']) 
+        treesWeight = edgeAttributes['weight'] / (20 * (edgeAttributes['trees'])) 
     return edgeAttributes['weight'] + treesWeight
     
 def getCandidateNodes(numberOfCandidates):
@@ -154,5 +155,9 @@ def getCandidateNodes(numberOfCandidates):
 def getTreeLocations():
     treeLocations = trees.getAllTreeLocations()
     return treeLocations
-getTreeLocations()
+
+def getAirPollution():
+    airPollution = airpollution.getAllAirPollution()
+    return airPollution
+#getTreeLocations()
 #getScenicPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)

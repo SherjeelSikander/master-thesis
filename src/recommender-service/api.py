@@ -43,5 +43,10 @@ def getTreeLocations():
     trees = service.getTreeLocations()
     return json.dumps(trees)
 
+@app.route('/airpollution/', methods=['GET'])
+def getAirPollution():
+    airpollution = service.getAirPollution()
+    return json.dumps(airpollution)
+
 if __name__ == '__main__':
     app.run(debug=False)
