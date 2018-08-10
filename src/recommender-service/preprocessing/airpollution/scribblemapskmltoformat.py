@@ -16,8 +16,6 @@ for x in range(1, len(root)):
 
 try:
     pollutionlinesFile = open(pollutionlines, 'w', encoding="utf8")
-    pollutionlinesFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-    pollutionlinesFile.write('<AirPollution>\n')
     for x in range(1, len(root)):
         coordinatesList = root[x][2][1].text.split('\n')
         for y in range(0, len(coordinatesList)-1):
@@ -25,7 +23,6 @@ try:
             lnglatnext = coordinatesList[y+1].split(',')
             CAQI = "25"
             pollutionlinesFile.write(lnglatprev[1] + ' ' + lnglatprev[0] + ' ' + lnglatnext[1] + ' ' + lnglatnext[0] + ' ' + CAQI + '\n')
-    pollutionlinesFile.write('</AirPollution>')
     pollutionlinesFile.close()
     print("Pollution File Created.")
         
