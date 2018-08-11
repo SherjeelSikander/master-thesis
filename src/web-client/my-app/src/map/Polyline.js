@@ -11,7 +11,7 @@ class Polyline extends PureComponent {
   }
 
   getPath() {
-    if (this.props.path && this.props.path.length > 2) {
+    if (this.props.path && this.props.path.length > 1) {
       return this.props.path;
     } else {
       return [];

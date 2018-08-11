@@ -86,6 +86,20 @@ class Map extends Component {
         })          
       } else if (show == false){
           console.log("Hide trees")
+          this.setState({ trees: [] });  
+      }
+    } else if (attributeId === MapOperations.attributeIds.airpollution){
+      if(show == true){
+        console.log("Show Air Pollution")
+        axios.get(localhost + 'airpollution/')
+        .then(response=> {
+          console.log("Response")
+          console.log(response.data)
+          this.setState({ airpollution: response.data });
+        })
+      } else if (show == false){
+          console.log("Hide air pollution")
+          this.setState({ airpollution: [] });
       }
     }
   }
@@ -98,7 +112,7 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} trees={this.state.trees} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} trees={this.state.trees} airpollution={this.state.airpollution} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="12"> &nbsp; </Col>
             <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm} sendAttributeSelection={this.getAttributeSelection}/> </Col>
           </Row>

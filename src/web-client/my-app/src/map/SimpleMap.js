@@ -33,6 +33,15 @@ class SimpleMap extends Component {
     if(nextProps.trees && nextProps.trees.length > 0){
       this.setState({trees:nextProps.trees})
     }
+    else if(nextProps.trees && nextProps.trees.length === 0){
+      this.setState({trees:[]})
+    }
+    if(nextProps.airpollution && nextProps.airpollution.length > 0){
+      this.setState({airpollution:nextProps.airpollution})
+    }
+    else if(nextProps.airpollution && nextProps.airpollution.length === 0){
+      this.setState({airpollution:[]})
+    }
   }
 
   static defaultProps = {
@@ -82,6 +91,20 @@ class SimpleMap extends Component {
         return <Marker key={'tree'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
       })
     }
+    if (this.state.mapLoaded && this.state.airpollution && this.state.airpollution.length > 0){
+      var that = this;
+      var pollutionLines = this.state.airpollution.map(function(airpollution, index){
+        var startLocation = {lat: airpollution[0], lng: airpollution[1]}
+        var endLocation = {lat: airpollution[2], lng: airpollution[3]}
+        var path = [startLocation, endLocation]
+        var verylow = "#79bc6a"
+        var low = "#bbcf4c"
+        var medium = "#eec20b"
+        var high = "#f29305"
+        var veryhigh = "#e8416f"
+        return <Polyline key={'airpollution'+index} map={that.state.map} maps={that.state.maps} path={path} color={verylow}/>;
+      })
+    }
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: '70vh', width: '100%' }}>
@@ -93,7 +116,8 @@ class SimpleMap extends Component {
           onGoogleApiLoaded ={({ map, maps }) => { this.setState({ map: map, maps:maps, mapLoaded: true }) }}
           yesIWantToUseGoogleMapApiInternals
         >
-        { this.state.mapLoaded && treeList }
+        { this.state.mapLoaded && treeList }        
+        { this.state.mapLoaded && pollutionLines }
         { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
         { this.state.mapLoaded && intermediateMarkerList }
