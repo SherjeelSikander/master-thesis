@@ -3,7 +3,7 @@ import os
 
 filename = 'dummylines'
 path = os.path.dirname(__file__) + '\\preprocessing\\airpollution\\'
-airpollutionFilePath = path + filename + '.pollution'
+airpollutionFilePath = path + filename + '.filter.pollution'
 
 airpollution = []
 

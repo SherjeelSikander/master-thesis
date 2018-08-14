@@ -3,6 +3,7 @@ import os
 from math import hypot
 import sys
 import networkx as nx
+from geopy.distance import great_circle
 
 filename = 'munich_attractions_area'
 
@@ -14,24 +15,54 @@ map_ways_edgelist = mapPath + filename + '.ways.edgelist'
 treePath = os.path.dirname(__file__) + '\\trees\\'
 treeSummaryFilePath = treePath + filename + '.trees_summary'
 
+airPollutionFilename = "dummylines"
+airPollutionPath = os.path.dirname(__file__) + '\\airpollution\\'
+airPollutionFilePath = airPollutionPath + airPollutionFilename + '.pollution'
+airPollutionFilteredFilePath = airPollutionPath + airPollutionFilename + '.filter.pollution'
+
 map_ways_weighted_edgelist = mapPath + filename + '.ways.weighted.edgelist'
+
+reuse_weight_file = True
+
+calculate_tree_weights = False
+
+calculate_airpollution_weights = False
+use_airpollution_filtered_file = False
+filter_airpollution = True
+
+calculate_cleanliness_weights = False
 
 node_dict = []
 graph = []
 trees = []
+airpollution = []
 
 def assignWeights():
     loadNodes()
     loadGraph()
-    loadTrees()
+    
+    if calculate_tree_weights == True:
+        loadTrees()
+        mapTreesToEdges()
+    
+    if filter_airpollution == True:
+        loadAirPollution()
+        filterAirPollution()
 
-    mapTreesToEdges()
-    writeGraph()
-    mapPollutionToEdge(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
-    #mapPollutionToEdges()
-    #mapCleanlinessToEdges()
+    if calculate_airpollution_weights == True:
+        loadAirPollution()
+        mapAirPollutionToEdges()
+    
+    if calculate_cleanliness_weights == True:
+        loadCleanliness()
+        mapCleanlinessToEdges()
 
-########### HELPER FUNCTIONS ###########
+    #writeGraph()
+    
+    #mapPollutionToEdge(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
+    
+#region HELPER FUNCTIONS
+
 def writeGraph():
     global graph
     nx.write_edgelist(graph, map_ways_weighted_edgelist, data=['weight','trees', 'clean', 'pollution'])
@@ -45,7 +76,10 @@ def loadNodes():
 def loadGraph():
     global graph
     try:
-        graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('trees',float),('clean',float),('pollution',float)))
+        if reuse_weight_file == True:
+            graph = nx.read_edgelist(map_ways_weighted_edgelist, nodetype=str, data=(('weight',float),('trees',float),('clean',float),('pollution',float)))
+        elif reuse_weight_file == False:
+            graph = nx.read_edgelist(map_ways_edgelist, nodetype=str, data=(('weight',float),('trees',float),('clean',float),('pollution',float)))
         print("Graph Loaded")
         print("Number of edges: ", graph.number_of_edges())
     except IOError:
@@ -64,11 +98,11 @@ def getNearestNode(lat, lng):
             minDistance = distance
             minDistanceNode = node
     
-    return minDistanceNode
+    return [minDistanceNode, minDistance]
 
 def getShortestDistancePath(startLat, startLng, endLat, endLng):
-    startNode = getNearestNode(float(startLat), float(startLng))
-    endNode = getNearestNode(float(endLat), float(endLng))
+    startNode = getNearestNode(float(startLat), float(startLng))[0]
+    endNode = getNearestNode(float(endLat), float(endLng))[0]
     
     print(startNode, endNode)
     print("ShortestPath")
@@ -83,7 +117,9 @@ def getShortestDistancePath(startLat, startLng, endLat, endLng):
 
     return [shortest_path]
 
-########### MAPPING TREES ###########  
+#endregion
+
+#region MAPPING TREES 
 def loadTrees():
     global trees
     try:
@@ -108,44 +144,120 @@ def mapTreesToEdges():
 
 def mapTreeToEdge(lat, lng):
     global graph
-    nearestNode = getNearestNode(float(lat), float(lng))
+    nearestNode = getNearestNode(float(lat), float(lng))[0]
     for neighbor in graph[nearestNode]:
         graph[nearestNode][neighbor]['trees'] = graph[nearestNode][neighbor]['trees'] + 1
     # find all edges connecting to the node
 
-########### MAPPING POLLUTION ###########
-def mapPollutionToEdges():
-    print("map Pollution to edges")
+#endregion
 
-def mapPollutionToEdge(startLat, startLng, endLat, endLng):
-    startNode = getNearestNode(float(startLat), float(startLng))
-    endNode = getNearestNode(float(endLat), float(endLng))
+#region MAPPING POLLUTION
+def loadAirPollution():
+    global airpollution
+    try:
+        airpollution = []
+        if use_airpollution_filtered_file == True:
+            airPollutionFile = open(airPollutionFilteredFilePath, 'r', encoding="utf8")
+        elif use_airpollution_filtered_file == False:
+            airPollutionFile = open(airPollutionFilePath, 'r', encoding="utf8")
+        for line in airPollutionFile:
+            values = line.rstrip().split(' ')
+            airpollution.append([float(values[0]), float(values[1]), float(values[2]), float(values[3]), int(values[4])])
+        airPollutionFile.close()
+            
+    except IOError:
+        print ("Could not read file or file does not exist: ", airPollutionFilePath)
+        sys.exit()
+
+def mapAirPollutionToEdges():
+    print("mapping air pollution to edges")
+    for idx, airpollutionEdge in enumerate(airpollution):
+        if idx % 100 == 0:
+            print(idx*100/len(airpollution))
+        mapAirPollutionToEdge(airpollutionEdge[0], airpollutionEdge[1], airpollutionEdge[2], airpollutionEdge[3], airpollutionEdge[4])
+    print("mapped air pollution to edges")
+
+def mapAirPollutionToEdge(startLat, startLng, endLat, endLng, pollutionValue):
+    global graph
+    nearestStart = getNearestNode(float(startLat), float(startLng))
+    startNode = nearestStart[0]
+    startNodeDistance = nearestStart[1]
+    nearestEnd = getNearestNode(float(endLat), float(endLng))
+    endNode = nearestEnd[0]
+    endNodeDistance = nearestEnd[1]
     
-    print("Aligning pollution with edges.")
-    print(startNode, endNode)
+    print("Nearest nodes are " + str(startNodeDistance) + ' ' + str(endNodeDistance) + " meters away")
 
     try:
         shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
+        shortest_path_length = nx.shortest_path_length(graph, source=startNode, target=endNode, weight='weight')
+        straight_line_distance = great_circle((startLat, startLng), (endLat, endLng)).m
     except:
         print("error")
-
-    print(shortest_path)
-
+    
+    if straight_line_distance == 0 or shortest_path_length/straight_line_distance > 1.5:
+        print("Invalid - nodes: " + str(len(shortest_path)) + ' distance: ' + str(shortest_path_length) + ' straightLine: ' + str(great_circle((startLat, startLng), (endLat, endLng)).m) + '\n')
+        return
+        
     for index, item in enumerate(shortest_path):
         if index < len(shortest_path) - 1:
-            print("Edge " + str(index) + ": between " + shortest_path[index] + " and " + shortest_path[index+1])
-            # Get edge between the two nodes
-            # Assign the weight value to the edge
+            #print("Edge " + str(index) + ": between " + shortest_path[index] + " and " + shortest_path[index+1])
+            if pollutionValue > graph[shortest_path[index]][shortest_path[index+1]]['pollution']:
+                graph[shortest_path[index]][shortest_path[index+1]]['pollution'] = pollutionValue
     
-    print ("Done")
+    #print ("Done")
 
-########### MAPPING CLEANLINESS ###########
+#endregion
+
+#region Filter Pollution
+def filterAirPollution():
+    try:
+        airPollutionFilteredFile = open(airPollutionFilteredFilePath, 'w', encoding="utf8")
+        
+    except IOError:
+        print ("Could not read file or file does not exist: ", airPollutionFilteredFile)
+        sys.exit()
+
+    print("filtering air pollution")
+    for idx, airpollutionEdge in enumerate(airpollution):
+        if idx % 100 == 0:
+            print(idx*100/len(airpollution))
+    
+        nearestStart = getNearestNode(float(airpollutionEdge[0]), float(airpollutionEdge[1]))
+        startNode = nearestStart[0]
+        startNodeDistance = nearestStart[1]
+        
+        nearestEnd = getNearestNode(float(airpollutionEdge[2]), float(airpollutionEdge[3]))
+        endNode = nearestEnd[0]
+        endNodeDistance = nearestEnd[1]
+        
+        print("Nearest nodes are " + str(startNodeDistance) + ' ' + str(endNodeDistance) + " meters away")
+
+        try:
+            shortest_path_length = nx.shortest_path_length(graph, source=startNode, target=endNode, weight='weight')
+            straight_line_distance = great_circle((airpollutionEdge[0], airpollutionEdge[1]), (airpollutionEdge[2], airpollutionEdge[3])).m
+        except:
+            print("error")
+        
+        if straight_line_distance == 0 or shortest_path_length/straight_line_distance > 1.5:
+            print("Invalid distance: " + str(shortest_path_length) + ' straightLine: ' + str(great_circle((airpollutionEdge[0], airpollutionEdge[1]), (airpollutionEdge[2], airpollutionEdge[3])).m) + '\n')
+        else:
+            airPollutionFilteredFile.write(str(airpollutionEdge[0]) + ' ' + str(airpollutionEdge[1]) + ' ' + str(airpollutionEdge[2]) + ' ' + str(airpollutionEdge[3]) + ' ' + str(airpollutionEdge[4]) + '\n')
+    
+    airPollutionFilteredFile.close()
+    print("filtered air pollution")
+#endregion
+
+#region MAPPING CLEANLINESS
+def loadCleanliness():
+    print("load cleanliness")
+
 def mapCleanlinessToEdges():
     print("map cleanliness to edges")
 
 def mapCleanlinessToEdge(startLat, startLng, endLat, endLng):
-    startNode = getNearestNode(float(startLat), float(startLng))
-    endNode = getNearestNode(float(endLat), float(endLng))
+    startNode = getNearestNode(float(startLat), float(startLng))[0]
+    endNode = getNearestNode(float(endLat), float(endLng))[0]
     
     print("Aligning cleanliness with edges.")
     print(startNode, endNode)
@@ -158,5 +270,7 @@ def mapCleanlinessToEdge(startLat, startLng, endLat, endLng):
     print(shortest_path)
     # Get edges between all the nodes of the shortest path
     # Assign the weight value to each edge accordingly
+
+#endregion
 
 assignWeights()
