@@ -127,7 +127,7 @@ def getScenicTreePath(startLat, startLng, endLat, endLng):
     print("Scenic Tree Path")
     
     try:
-        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeWeight)
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeTreeWeight)
     except:
         print("error")
     
@@ -138,13 +138,37 @@ def getScenicTreePath(startLat, startLng, endLat, endLng):
 
 #The function must accept exactly three positional arguments: the two endpoints of an edge and 
 # the dictionary of edge attributes for that edge. The function must return a number.
-def edgeWeight(startEdge, endEdge, edgeAttributes):
+def edgeTreeWeight(startEdge, endEdge, edgeAttributes):
     if edgeAttributes['trees'] == 0:
         treesWeight = edgeAttributes['weight'] * 4
     else:
         treesWeight = edgeAttributes['weight'] / (20 * (edgeAttributes['trees'])) 
     return edgeAttributes['weight'] + treesWeight
+
+def getScenicAirPollutionPath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    endNode = getNearestNode(float(endLat), float(endLng))
     
+    print(startNode, endNode)
+    print("Scenic Tree Path")
+    
+    try:
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeAirPollutionWeight)
+    except:
+        print("error")
+    
+    for index, item in enumerate(shortest_path):
+        shortest_path[index] = node_dict[item]
+
+    return [shortest_path]
+
+def edgeAirPollutionWeight(startEdge, endEdge, edgeAttributes):
+    if edgeAttributes['pollution'] == 0:
+        airPollutionWeight = 1
+    else:
+        airPollutionWeight = edgeAttributes['pollution'] / 25
+    return edgeAttributes['weight'] * airPollutionWeight
+
 def getCandidateNodes(numberOfCandidates):
     candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
     candidateNodes = []

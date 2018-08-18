@@ -32,7 +32,10 @@ def getShortestRoute():
         elif algorithmId == 3: # tree route
             shortest_path = service.getScenicTreePath(startLat, startLng, destinationLat, destinationLng)
             return json.dumps(shortest_path)
-        elif algorithmId == 4: # scenic route
+        elif algorithmId == 4: # air pollution route
+            shortest_path = service.getScenicAirPollutionPath(startLat, startLng, destinationLat, destinationLng)
+            return json.dumps(shortest_path)
+        elif algorithmId == 5: # scenic route
             shortest_path = service.getScenicPath(startLat, startLng, destinationLat, destinationLng)
             return json.dumps(shortest_path)
     else:
