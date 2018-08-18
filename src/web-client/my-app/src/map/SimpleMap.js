@@ -97,12 +97,26 @@ class SimpleMap extends Component {
         var startLocation = {lat: airpollution[0], lng: airpollution[1]}
         var endLocation = {lat: airpollution[2], lng: airpollution[3]}
         var path = [startLocation, endLocation]
+        var caqi = parseInt(airpollution[4], 10)
         var verylow = "#79bc6a"
         var low = "#bbcf4c"
         var medium = "#eec20b"
         var high = "#f29305"
         var veryhigh = "#e8416f"
-        return <Polyline key={'airpollution'+index} map={that.state.map} maps={that.state.maps} path={path} color={verylow}/>;
+        var color = verylow
+        if(caqi < 25){
+          color = verylow
+        } else if (caqi < 50) {
+          color = low
+        } else if (caqi < 75) {
+          color = medium
+        } else if (caqi < 100){
+          color = high
+        } else if (caqi > 100) {
+          color = veryhigh
+        }
+        
+        return <Polyline key={'airpollution'+index} map={that.state.map} maps={that.state.maps} path={path} color={color}/>;
       })
     }
     return (

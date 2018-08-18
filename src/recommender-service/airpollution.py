@@ -3,7 +3,7 @@ import os
 
 filename = 'dummylines'
 path = os.path.dirname(__file__) + '\\preprocessing\\airpollution\\'
-airpollutionFilePath = path + filename + '.filter.pollution'
+airpollutionFilePath = path + filename + '.randomcaqi.filter.pollution'
 
 airpollution = []
 
