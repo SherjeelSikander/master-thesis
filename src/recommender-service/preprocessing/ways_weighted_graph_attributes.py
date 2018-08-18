@@ -19,6 +19,7 @@ airPollutionFilename = "dummylines"
 airPollutionPath = os.path.dirname(__file__) + '\\airpollution\\'
 airPollutionFilePath = airPollutionPath + airPollutionFilename + '.pollution'
 airPollutionFilteredFilePath = airPollutionPath + airPollutionFilename + '.filter.pollution'
+airPollutionFilteredRandomCaqiFilePath = airPollutionPath + airPollutionFilename + '.randomcaqi.filter.pollution'
 
 map_ways_weighted_edgelist = mapPath + filename + '.ways.weighted.edgelist'
 
@@ -26,9 +27,10 @@ reuse_weight_file = True
 
 calculate_tree_weights = False
 
-calculate_airpollution_weights = False
+calculate_airpollution_weights = True
 use_airpollution_filtered_file = False
-filter_airpollution = True
+use_airpollution_filtered_randomcaqi_file = True
+filter_airpollution = False
 
 calculate_cleanliness_weights = False
 
@@ -57,7 +59,7 @@ def assignWeights():
         loadCleanliness()
         mapCleanlinessToEdges()
 
-    #writeGraph()
+    writeGraph()
     
     #mapPollutionToEdge(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
     
@@ -156,7 +158,9 @@ def loadAirPollution():
     global airpollution
     try:
         airpollution = []
-        if use_airpollution_filtered_file == True:
+        if use_airpollution_filtered_randomcaqi_file == True:
+            airPollutionFile = open(airPollutionFilteredRandomCaqiFilePath, 'r', encoding="utf8")
+        elif use_airpollution_filtered_file == True:
             airPollutionFile = open(airPollutionFilteredFilePath, 'r', encoding="utf8")
         elif use_airpollution_filtered_file == False:
             airPollutionFile = open(airPollutionFilePath, 'r', encoding="utf8")
@@ -172,7 +176,7 @@ def loadAirPollution():
 def mapAirPollutionToEdges():
     print("mapping air pollution to edges")
     for idx, airpollutionEdge in enumerate(airpollution):
-        if idx % 100 == 0:
+        if idx % 10 == 0:
             print(idx*100/len(airpollution))
         mapAirPollutionToEdge(airpollutionEdge[0], airpollutionEdge[1], airpollutionEdge[2], airpollutionEdge[3], airpollutionEdge[4])
     print("mapped air pollution to edges")
@@ -204,8 +208,6 @@ def mapAirPollutionToEdge(startLat, startLng, endLat, endLng, pollutionValue):
             #print("Edge " + str(index) + ": between " + shortest_path[index] + " and " + shortest_path[index+1])
             if pollutionValue > graph[shortest_path[index]][shortest_path[index+1]]['pollution']:
                 graph[shortest_path[index]][shortest_path[index+1]]['pollution'] = pollutionValue
-    
-    #print ("Done")
 
 #endregion
 
