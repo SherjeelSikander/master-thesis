@@ -52,7 +52,8 @@ class MapOperations extends Component {
     1: "Least Hops",
     2: "Center Pass",
     3: "Scenic: Trees",
-    4: "Scenic: Air Pollution"
+    4: "Scenic: Air Pollution",
+    5: "Scenic: Cleanliness (Litter)"
   };
 
   static attributeTexts = {
@@ -114,6 +115,8 @@ class MapOperations extends Component {
                   active={this.state.algorithmId === 3}>{MapOperations.algorithmTexts[3]}</DropdownItem>
               <DropdownItem onClick={() => this.selectDropdownValue(4, "Scenic: Air Pollution")}
                   active={this.state.algorithmId === 4}>{MapOperations.algorithmTexts[4]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(5, "Scenic: Cleanliness (Litter)")}
+                  active={this.state.algorithmId === 5}>{MapOperations.algorithmTexts[5]}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
           &nbsp;
