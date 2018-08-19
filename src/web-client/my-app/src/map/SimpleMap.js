@@ -42,6 +42,12 @@ class SimpleMap extends Component {
     else if(nextProps.airpollution && nextProps.airpollution.length === 0){
       this.setState({airpollution:[]})
     }
+    if(nextProps.cleanliness && nextProps.cleanliness.length > 0){
+      this.setState({cleanliness:nextProps.cleanliness})
+    }
+    else if(nextProps.cleanliness && nextProps.cleanliness.length === 0){
+      this.setState({cleanliness:[]})
+    }
   }
 
   static defaultProps = {
@@ -52,7 +58,12 @@ class SimpleMap extends Component {
     zoom: 12,
     greenMarker: "http://maps.google.com/mapfiles/ms/icons/green-dot.png",
     redMarker: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
-    tree: "https://maps.google.com/mapfiles/ms/micons/tree.png"
+    tree: "https://maps.google.com/mapfiles/ms/micons/tree.png",
+    litter: {
+      green: "https://i.imgur.com/Dkp0VKi.png",
+      orange: "https://i.imgur.com/njKaQIy.png",
+      red: "https://i.imgur.com/PHDuhu0.png"
+    }
   };
 
   onClick = ({x, y, lat, lng, event}) => {
@@ -89,6 +100,22 @@ class SimpleMap extends Component {
       var treeList = this.state.trees.map(function(tree, index){
         var location = {lat: tree[0], lng: tree[1], icon: that.props.tree}
         return <Marker key={'tree'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
+      })
+    }
+    if (this.state.mapLoaded && this.state.cleanliness && this.state.cleanliness.length > 0){
+      var that = this;
+      var cleanlinessList = this.state.cleanliness.map(function(litter, index){
+        var litterValue = parseInt(litter[2], 10)
+        var iconUrl
+        if (litterValue < 2) {
+          iconUrl = that.props.litter.green
+        } else if (litterValue < 5){
+          iconUrl = that.props.litter.orange
+        } else if (litterValue >= 5){
+          iconUrl = that.props.litter.red
+        }
+        var location = {lat: litter[0], lng: litter[1], icon: iconUrl}
+        return <Marker key={'litter'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
       })
     }
     if (this.state.mapLoaded && this.state.airpollution && this.state.airpollution.length > 0){
@@ -132,6 +159,7 @@ class SimpleMap extends Component {
         >
         { this.state.mapLoaded && treeList }        
         { this.state.mapLoaded && pollutionLines }
+        { this.state.mapLoaded && cleanlinessList }
         { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
         { this.state.mapLoaded && intermediateMarkerList }
