@@ -22,22 +22,20 @@ def getShortestRoute():
     if service.isWithinRange(startLat, startLng, destinationLat, destinationLng, 5):
         if algorithmId == 0: # shortest path
             shortest_path = service.getShortestPath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
         elif algorithmId == 1: # least number of hops
             shortest_path = service.getLeastNodesPath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
         elif algorithmId == 2: # pass through the center
             shortest_path = service.getCenterPassPath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
         elif algorithmId == 3: # tree route
             shortest_path = service.getScenicTreePath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
         elif algorithmId == 4: # air pollution route
             shortest_path = service.getScenicAirPollutionPath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
-        elif algorithmId == 5: # scenic route
+        elif algorithmId == 5: # litter route
+            shortest_path = service.getScenicLitterPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 6: # scenic route
             shortest_path = service.getScenicPath(startLat, startLng, destinationLat, destinationLng)
-            return json.dumps(shortest_path)
+
+        return json.dumps(shortest_path)
     else:
         return json.dumps({"status": 422, "description": "Start and End point should be within 5km."})
 

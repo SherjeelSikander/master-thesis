@@ -21,23 +21,28 @@ airPollutionFilePath = airPollutionPath + airPollutionFilename + '.pollution'
 airPollutionFilteredFilePath = airPollutionPath + airPollutionFilename + '.filter.pollution'
 airPollutionFilteredRandomCaqiFilePath = airPollutionPath + airPollutionFilename + '.randomcaqi.filter.pollution'
 
+litterFilename = "littering"
+litterPath = os.path.dirname(__file__) + '\\littering\\'
+litterFilePath = litterPath + litterFilename + '.random.litter'
+
 map_ways_weighted_edgelist = mapPath + filename + '.ways.weighted.edgelist'
 
 reuse_weight_file = True
 
 calculate_tree_weights = False
 
-calculate_airpollution_weights = True
+calculate_airpollution_weights = False
 use_airpollution_filtered_file = False
 use_airpollution_filtered_randomcaqi_file = True
 filter_airpollution = False
 
-calculate_cleanliness_weights = False
+calculate_cleanliness_weights = True
 
 node_dict = []
 graph = []
 trees = []
 airpollution = []
+litter = []
 
 def assignWeights():
     loadNodes()
@@ -252,26 +257,35 @@ def filterAirPollution():
 
 #region MAPPING CLEANLINESS
 def loadCleanliness():
-    print("load cleanliness")
-
-def mapCleanlinessToEdges():
-    print("map cleanliness to edges")
-
-def mapCleanlinessToEdge(startLat, startLng, endLat, endLng):
-    startNode = getNearestNode(float(startLat), float(startLng))[0]
-    endNode = getNearestNode(float(endLat), float(endLng))[0]
-    
-    print("Aligning cleanliness with edges.")
-    print(startNode, endNode)
-
+    print("loading cleanliness")
+    global litter
     try:
-        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
-    except:
-        print("error")
+        location = []
+        litterFile = open(litterFilePath, 'r', encoding="utf8")
+        for line in litterFile:
+            location = line.rstrip().split(' ')
+            litter.append([float(location[0]), float(location[1]), float(location[2])])
+        litterFile.close()
+            
+    except IOError:
+        print ("Could not read file or file does not exist: ", litterFilePath)
+        sys.exit()
+    print("cleanliness loaded")
+    
+def mapCleanlinessToEdges():
+    print("mapping cleanliness to edges")
+    for idx, litterSpot in enumerate(litter):
+        if idx % 5 == 0:
+            print(idx*100/len(litter))
+        mapCleanlinessToEdge(litterSpot[0], litterSpot[1], litterSpot[2])
+    print("mapped cleanliness to edges")
 
-    print(shortest_path)
-    # Get edges between all the nodes of the shortest path
-    # Assign the weight value to each edge accordingly
+def mapCleanlinessToEdge(lat, lng, value):
+    global graph
+    nearestNode = getNearestNode(float(lat), float(lng))[0]
+    for neighbor in graph[nearestNode]:
+        graph[nearestNode][neighbor]['clean'] = graph[nearestNode][neighbor]['clean'] + value
+    # find all edges connecting to the node
 
 #endregion
 

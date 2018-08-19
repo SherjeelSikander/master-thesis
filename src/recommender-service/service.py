@@ -170,6 +170,31 @@ def edgeAirPollutionWeight(startEdge, endEdge, edgeAttributes):
         airPollutionWeight = edgeAttributes['pollution'] / 25
     return edgeAttributes['weight'] * airPollutionWeight
 
+def getScenicLitterPath(startLat, startLng, endLat, endLng):
+    startNode = getNearestNode(float(startLat), float(startLng))
+    endNode = getNearestNode(float(endLat), float(endLng))
+    
+    print(startNode, endNode)
+    print("Scenic Litter Path")
+    
+    try:
+        shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeLitterWeight)
+    except:
+        print("error")
+    
+    for index, item in enumerate(shortest_path):
+        shortest_path[index] = node_dict[item]
+
+    return [shortest_path]
+
+def edgeLitterWeight(startEdge, endEdge, edgeAttributes):
+    if edgeAttributes['clean'] == 0:
+        litterWeight = 1
+    else:
+        litterWeight = edgeAttributes['clean'] * 2
+        #print(litterWeight)
+    return edgeAttributes['weight'] * litterWeight
+
 def getCandidateNodes(numberOfCandidates):
     candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
     candidateNodes = []
