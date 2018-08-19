@@ -51,5 +51,10 @@ def getAirPollution():
     airpollution = service.getAirPollution()
     return json.dumps(airpollution)
 
+@app.route('/litter/', methods=['GET'])
+def getLitterLocations():
+    litter = service.getLitterLocations()
+    return json.dumps(litter)  
+
 if __name__ == '__main__':
     app.run(debug=False)

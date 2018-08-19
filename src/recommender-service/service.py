@@ -7,6 +7,7 @@ from geopy.distance import great_circle
 import candidates as candidate_selection
 import trees
 import airpollution
+import litter
 
 filename = 'munich_attractions_area'
 path = os.path.dirname(__file__) + '\\map\\'
@@ -183,5 +184,9 @@ def getTreeLocations():
 def getAirPollution():
     airPollution = airpollution.getAllAirPollution()
     return airPollution
+
+def getLitterLocations():
+    litterLocations = litter.getAllLitterLocations()
+    return litterLocations
 #getTreeLocations()
 #getScenicPath(48.133283158915276, 11.566615637573221, 48.13482978762863, 11.582279738220194)
