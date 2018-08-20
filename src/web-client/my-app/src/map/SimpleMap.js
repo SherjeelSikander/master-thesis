@@ -177,7 +177,7 @@ class SimpleMap extends Component {
         { this.state.mapLoaded && candidateList }
         { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
-        { this.state.mapLoaded && intermediateMarkerList }
+        {/* { this.state.mapLoaded && intermediateMarkerList } */}
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.destination} /> }
 
         </GoogleMapReact>

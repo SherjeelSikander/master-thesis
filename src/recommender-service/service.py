@@ -168,15 +168,17 @@ def getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
     return [shortest_path]
 
 def getMultiScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
-    startNode = getNearestNode(float(startLat), float(startLng))
-    endNode = getNearestNode(float(endLat), float(endLng))
-    
-    candidateNodes = getCandidateNodes(5)
-
-    print(startNode, endNode)
-    print("ScenicPath")
-    
-    return []
+    orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    shortestPaths = []
+    for x in range(0, len(orderedCandidateNodes) + 1):
+        if x == 0:
+            shortestPaths.append(getScenicTreeAirLitterPath(startLat, startLng, float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x < len(orderedCandidateNodes):
+            shortestPaths.append(getScenicTreeAirLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x == len(orderedCandidateNodes):
+            shortestPaths.append(getScenicTreeAirLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
+            
+    return shortestPaths
 
 #The function must accept exactly three positional arguments: the two endpoints of an edge and 
 # the dictionary of edge attributes for that edge. The function must return a number.
@@ -199,18 +201,10 @@ def edgeLitterWeight(startEdge, endEdge, edgeAttributes):
         litterWeight = 1
     else:
         litterWeight = edgeAttributes['clean'] * 2
-        #print(litterWeight)
     return edgeAttributes['weight'] * litterWeight
 
 def edgeTreeAirLitterWeight(startEdge, endEdge, edgeAttributes):
     return edgeTreeWeight(startEdge, endEdge, edgeAttributes) + edgeAirPollutionWeight(startEdge, endEdge, edgeAttributes) + edgeLitterWeight(startEdge, endEdge, edgeAttributes)
-
-def getCandidateNodes(numberOfCandidates):
-    candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
-    candidateNodes = []
-    for x in range(0, numberOfCandidates):
-        candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
-    return candidateNodes
 
 def getTreeLocations():
     treeLocations = trees.getAllTreeLocations()
@@ -224,9 +218,37 @@ def getLitterLocations():
     litterLocations = litter.getAllLitterLocations()
     return litterLocations
 
+def getCandidateNodes(numberOfCandidates):
+    candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
+    candidateNodes = []
+    for x in range(0, numberOfCandidates):
+        candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
+    return candidateNodes
+
 def getRandomCandidateLocations():
     global candidates
-    print("Previous Candidates")
-    print(candidates)
+    # print("Previous Candidates")
+    # print(candidates)
     candidates = getCandidateNodes(5)
     return candidates
+
+def getSetCandidates():
+    if len(candidates)==0:
+        return getRandomCandidateLocations()
+    else:
+        return candidates
+
+def getOrderedCandidates(startLat, startLng, endLat, endLng):
+    candidateNodes = getSetCandidates()
+    distanceCandidateNodes = []
+    orderedCandidateNodes = []
+
+    for x in range(0, len(candidateNodes)):
+        distance = great_circle((startLat, startLng), (float(candidateNodes[x][1][1]), float(candidateNodes[x][1][2]))).m
+        distanceCandidateNodes.append([distance, candidateNodes[x]])
+
+    distanceCandidateNodes.sort(key=lambda x:x[0])
+    for x in range(0, len(distanceCandidateNodes)):
+        orderedCandidateNodes.append(distanceCandidateNodes[x][1]) 
+
+    return orderedCandidateNodes
