@@ -70,7 +70,8 @@ class SimpleMap extends Component {
       orange: "https://i.imgur.com/njKaQIy.png",
       red: "https://i.imgur.com/PHDuhu0.png"
     },
-    poi: "https://maps.google.com/mapfiles/kml/pal3/icon23.png"
+    poi: "https://maps.google.com/mapfiles/kml/pal3/icon23.png",
+    colorList: ["#1C2833", "#922B21", "#BA4A00", "#1F618D", "#6C3483", "#28B463"]
   };
 
   onClick = ({x, y, lat, lng, event}) => {
@@ -90,9 +91,8 @@ class SimpleMap extends Component {
     if (this.state.mapLoaded && this.state.paths) {
       var that = this;
       var pathList = this.state.paths.map(function (path, index) {
-        return <Polyline key={index} map={that.state.map} maps={that.state.maps} path={path} />;
+        return <Polyline key={index} map={that.state.map} maps={that.state.maps} path={path} color={that.props.colorList[index%6]}/>;
       })
-      console.log("Done")
     }
     if (this.state.mapLoaded && this.state.paths && this.state.paths.length > 1) {
       var that = this;
