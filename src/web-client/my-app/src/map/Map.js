@@ -113,7 +113,15 @@ class Map extends Component {
       } else if (show == false){
         console.log("Hide cleanliness")
         this.setState({ cleanliness: [] });
-      }
+      } 
+    } else if (attributeId === MapOperations.attributeIds.candidates){
+      console.log("Show Random Candidates")
+      axios.get(localhost + 'candidates/')
+      .then(response=> {
+        console.log("Response")
+        console.log(response.data)
+        this.setState({ candidates: response.data });
+      })
     }
   }
   render() {
@@ -124,7 +132,7 @@ class Map extends Component {
         </header>
         <Container>
           <Row>              
-            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} trees={this.state.trees} airpollution={this.state.airpollution} cleanliness={this.state.cleanliness} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
+            <Col xs="12"> <SimpleMap ref="simpleMap" paths={this.state.paths} trees={this.state.trees} airpollution={this.state.airpollution} cleanliness={this.state.cleanliness} candidates={this.state.candidates} operation={this.state.operation} sendResult={this.getResult}/>  </Col>
             <Col xs="12"> &nbsp; </Col>
             <Col xs="12"> <MapOperations ref="mapOperations" result={this.state.result} sendOperation={this.getOperation} sendPathAlgorithm={this.getPathAlgorithm} sendAttributeSelection={this.getAttributeSelection}/> </Col>
           </Row>

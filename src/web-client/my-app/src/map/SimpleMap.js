@@ -47,7 +47,13 @@ class SimpleMap extends Component {
     }
     else if(nextProps.cleanliness && nextProps.cleanliness.length === 0){
       this.setState({cleanliness:[]})
+    } 
+    if(nextProps.candidates && nextProps.candidates.length > 0){
+      this.setState({candidates:nextProps.candidates})
     }
+    else if(nextProps.candidates && nextProps.candidates.length === 0){
+      this.setState({candidates:[]})
+    } 
   }
 
   static defaultProps = {
@@ -63,7 +69,8 @@ class SimpleMap extends Component {
       green: "https://i.imgur.com/Dkp0VKi.png",
       orange: "https://i.imgur.com/njKaQIy.png",
       red: "https://i.imgur.com/PHDuhu0.png"
-    }
+    },
+    poi: "https://maps.google.com/mapfiles/kml/pal3/icon23.png"
   };
 
   onClick = ({x, y, lat, lng, event}) => {
@@ -100,6 +107,13 @@ class SimpleMap extends Component {
       var treeList = this.state.trees.map(function(tree, index){
         var location = {lat: tree[0], lng: tree[1], icon: that.props.tree}
         return <Marker key={'tree'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
+      })
+    }
+    if (this.state.mapLoaded && this.state.candidates && this.state.candidates.length > 0){
+      var that = this;
+      var candidateList = this.state.candidates.map(function(candidate, index){
+          var location = {lat: parseFloat(candidate[1][1],10), lng: parseFloat(candidate[1][2],10), icon: that.props.poi, title: candidate[1][0]}
+          return <Marker key={'candidate'+index} map={that.state.map} maps={that.state.maps} marker={location} />;
       })
     }
     if (this.state.mapLoaded && this.state.cleanliness && this.state.cleanliness.length > 0){
@@ -160,6 +174,7 @@ class SimpleMap extends Component {
         { this.state.mapLoaded && treeList }        
         { this.state.mapLoaded && pollutionLines }
         { this.state.mapLoaded && cleanlinessList }
+        { this.state.mapLoaded && candidateList }
         { this.state.mapLoaded && pathList }
         { this.state.mapLoaded && <Marker map={this.state.map} maps={this.state.maps} marker={this.state.start} /> }
         { this.state.mapLoaded && intermediateMarkerList }

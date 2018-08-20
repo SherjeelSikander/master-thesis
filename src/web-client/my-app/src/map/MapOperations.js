@@ -53,19 +53,22 @@ class MapOperations extends Component {
     2: "Center Pass",
     3: "Scenic: Trees",
     4: "Scenic: Air Pollution",
-    5: "Scenic: Cleanliness (Litter)"
+    5: "Scenic: Cleanliness (Litter)",
+    6: "Scenic: Trees + Air + Litter"
   };
 
   static attributeTexts = {
     0: "Trees", 
     1: "Cleanliness",
-    2: "Air Pollution"
+    2: "Air Pollution",
+    3: "Random POIs"
   };
 
   static attributeIds = {
     trees: 0, 
     cleanliness: 1,
-    airpollution: 2
+    airpollution: 2,
+    candidates: 3
   };
 
   selectDropdownValue(algorithmId, operationValue) {
@@ -117,6 +120,8 @@ class MapOperations extends Component {
                   active={this.state.algorithmId === 4}>{MapOperations.algorithmTexts[4]}</DropdownItem>
               <DropdownItem onClick={() => this.selectDropdownValue(5, "Scenic: Cleanliness (Litter)")}
                   active={this.state.algorithmId === 5}>{MapOperations.algorithmTexts[5]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(6, "Scenic: Trees + Air + Litter")}
+                  active={this.state.algorithmId === 6}>{MapOperations.algorithmTexts[6]}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
           &nbsp;
@@ -126,6 +131,8 @@ class MapOperations extends Component {
             <Button color="success" onClick={() => this.onShowAttributeSelected(1)} active={this.state.attributeSelected.includes(1)}>{MapOperations.attributeTexts[1]}</Button>
             &nbsp;
             <Button color="success" onClick={() => this.onShowAttributeSelected(2)} active={this.state.attributeSelected.includes(2)}>{MapOperations.attributeTexts[2]}</Button>
+            &nbsp;
+            <Button color="warning" onClick={() => this.onShowAttributeSelected(3)} active={this.state.attributeSelected.includes(3)}>{MapOperations.attributeTexts[3]}</Button>
           </ButtonGroup>
         </Row>
 

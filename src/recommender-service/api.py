@@ -32,8 +32,10 @@ def getShortestRoute():
             shortest_path = service.getScenicAirPollutionPath(startLat, startLng, destinationLat, destinationLng)
         elif algorithmId == 5: # litter route
             shortest_path = service.getScenicLitterPath(startLat, startLng, destinationLat, destinationLng)
-        elif algorithmId == 6: # scenic route
-            shortest_path = service.getScenicPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 6: # scenic (tree + air + litter)
+            shortest_path = service.getScenicTreeAirLitterPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 7: # multi scenic (tree + air + litter)
+            shortest_path = service.getMultiScenicTreeAirLitterPath(startLat, startLng, destinationLat, destinationLng)
 
         return json.dumps(shortest_path)
     else:
@@ -53,6 +55,11 @@ def getAirPollution():
 def getLitterLocations():
     litter = service.getLitterLocations()
     return json.dumps(litter)  
+
+@app.route('/candidates/', methods=['GET'])
+def getRandomCandidateLocations():
+    candidates = service.getRandomCandidateLocations()
+    return json.dumps(candidates)  
 
 if __name__ == '__main__':
     app.run(debug=False)

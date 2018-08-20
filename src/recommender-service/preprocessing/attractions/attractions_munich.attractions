@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Attractions>
+<attraction name="Marienplatz (St. Mary's Square)" lat="48.137182" lon="11.575277"/>
+<attraction name="Neues Rathaus (New City Hall) and Glockenspiel" lat="48.137454" lon="11.576135"/>
+<attraction name="Frauenkirche (Church of our Lady)" lat="48.138456" lon="11.573217"/>
+<attraction name="Viktualienmarkt" lat="48.135177" lon="11.576521"/>
+<attraction name="Munich City Museum (Münchener Stadtmuseum)" lat="48.13517" lon="11.572573"/>
+<attraction name="Deutsches Jagd- und Fischermuseum (German Hunting and Fishing Museum)" lat="48.138285" lon="11.5715"/>
+<attraction name="Asamkirche (Asam Church)" lat="48.135191" lon="11.569591"/>
+<attraction name="Altes Rathaus (Old City Hall)" lat="48.136802" lon="11.576854"/>
+<attraction name="Michaelskirche (Church of St Michael)" lat="48.138657" lon="11.570363"/>
+<attraction name="Sendlinger Tor (Sendling Gate)" lat="48.13411" lon="11.567681"/>
+<attraction name="Juliet Statue" lat="48.136666" lon="11.576993"/>
+<attraction name="Bürgersaalkirche (Bürgersaal church)" lat="48.138779" lon="11.568099"/>
+<attraction name="Hofbräuhaus" lat="48.137912" lon="11.580126"/>
+<attraction name="Munich Residenz" lat="48.140411" lon="11.577895"/>
+<attraction name="Odeonsplatz" lat="48.142201" lon="11.577444"/>
+<attraction name="Feldherrnhalle (Field Marshall's Hall)" lat="48.1418" lon="11.577337"/>
+<attraction name="Hofgarten (Royal Garden)" lat="48.143003" lon="11.57974"/>
+<attraction name="Theatinerkirche St Cajetan (Theatine Church)" lat="48.142036" lon="11.576951"/>
+<attraction name="Literaturhaus (House of Literature)" lat="48.141871" lon="11.575062"/>
+<attraction name="Egyptian Art Museum" lat="48.141692" lon="11.580513"/>
+<attraction name="National Theatre" lat="48.139903" lon="11.57886"/>
+<attraction name="Alter Hof" lat="48.138263" lon="11.578174"/>
+<attraction name="Alte Pinakothek" lat="48.148279" lon="11.569955"/>
+<attraction name="Pinakothek der Moderne" lat="48.14742" lon="11.571543"/>
+<attraction name="Neue Pinakothek" lat="48.149495" lon="11.571565"/>
+<attraction name="Konigsplatz" lat="48.145916" lon="11.564763"/>
+<attraction name="State Antiques Collection" lat="48.145301" lon="11.565042"/>
+<attraction name="Glyptothek" lat="48.146246" lon="11.565578"/>
+<attraction name="Karolinenplatz (Caroline’s Square)" lat="48.144685" lon="11.569161"/>
+<attraction name="Amerikahaus" lat="48.144499" lon="11.56841"/>
+<attraction name="Bavarian Collection of Graphic Arts" lat="48.14457" lon="11.566329"/>
+<attraction name="Deutsches Museum" lat="48.131482" lon="11.585662"/>
+<attraction name="Valentin Karlstadt Museum" lat="48.134848" lon="11.582015"/>
+<attraction name="Isartor" lat="48.134733" lon="11.582444"/>
+<attraction name="Museum Villa Stuck" lat="48.140561" lon="11.599503"/>
+<attraction name="Angel of Peace" lat="48.141306" lon="11.596992"/>
+<attraction name="The Englischer Garten" lat="48.147878" lon="11.588345"/>
+<attraction name="LMU uni and White Rose museum" lat="48.150827" lon="11.580448"/>
+<attraction name="Siegestor" lat="48.152602" lon="11.582208"/>
+<attraction name="Haus der Kunst" lat="48.144384" lon="11.585426"/>
+<attraction name="Ludwigskirche" lat="48.149195" lon="11.580942"/>
+<attraction name="Bayerische Staatsbibliothek (Bavarian State Library)" lat="48.147627" lon="11.580234"/>
+</Attractions>
