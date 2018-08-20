@@ -71,7 +71,7 @@ class SimpleMap extends Component {
       red: "https://i.imgur.com/PHDuhu0.png"
     },
     poi: "https://maps.google.com/mapfiles/kml/pal3/icon23.png",
-    colorList: ["#1C2833", "#922B21", "#BA4A00", "#1F618D", "#6C3483", "#28B463"]
+    colorList: ["#1C2833", "#6C3483", "#922B21", "#28B463", "#BA4A00", "#1F618D", ]
   };
 
   onClick = ({x, y, lat, lng, event}) => {

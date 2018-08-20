@@ -53,9 +53,6 @@ def getShortestPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
     
-    print(startNode, endNode)
-    print("ShortestPath")
-    
     try:
         shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight='weight')
     except:
@@ -65,13 +62,23 @@ def getShortestPath(startLat, startLng, endLat, endLng):
         shortest_path[index] = node_dict[item]
 
     return [shortest_path]
-    
+
+def getMultiShortestPath(startLat, startLng, endLat, endLng):
+    orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    shortestPaths = []
+    for x in range(0, len(orderedCandidateNodes) + 1):
+        if x == 0:
+            shortestPaths.append(getShortestPath(startLat, startLng, float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x < len(orderedCandidateNodes):
+            shortestPaths.append(getShortestPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x == len(orderedCandidateNodes):
+            shortestPaths.append(getShortestPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
+            
+    return shortestPaths
+
 def getLeastNodesPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
-    
-    print(startNode, endNode)
-    print("LeastNodesPath")
     
     try:
         shortest_path = nx.shortest_path(graph, source=startNode, target=endNode)
@@ -125,6 +132,19 @@ def getScenicTreePath(startLat, startLng, endLat, endLng):
 
     return [shortest_path]
 
+def getMultiScenicTreePath(startLat, startLng, endLat, endLng):
+    orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    shortestPaths = []
+    for x in range(0, len(orderedCandidateNodes) + 1):
+        if x == 0:
+            shortestPaths.append(getScenicTreePath(startLat, startLng, float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x < len(orderedCandidateNodes):
+            shortestPaths.append(getScenicTreePath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x == len(orderedCandidateNodes):
+            shortestPaths.append(getScenicTreePath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
+            
+    return shortestPaths
+
 def getScenicAirPollutionPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
@@ -139,6 +159,19 @@ def getScenicAirPollutionPath(startLat, startLng, endLat, endLng):
 
     return [shortest_path]
 
+def getMultiScenicAirPollutionPath(startLat, startLng, endLat, endLng):
+    orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    shortestPaths = []
+    for x in range(0, len(orderedCandidateNodes) + 1):
+        if x == 0:
+            shortestPaths.append(getScenicAirPollutionPath(startLat, startLng, float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x < len(orderedCandidateNodes):
+            shortestPaths.append(getScenicAirPollutionPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x == len(orderedCandidateNodes):
+            shortestPaths.append(getScenicAirPollutionPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
+            
+    return shortestPaths
+
 def getScenicLitterPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
@@ -152,6 +185,19 @@ def getScenicLitterPath(startLat, startLng, endLat, endLng):
         shortest_path[index] = node_dict[item]
 
     return [shortest_path]
+
+def getMultiScenicLitterPath(startLat, startLng, endLat, endLng):
+    orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    shortestPaths = []
+    for x in range(0, len(orderedCandidateNodes) + 1):
+        if x == 0:
+            shortestPaths.append(getScenicLitterPath(startLat, startLng, float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x < len(orderedCandidateNodes):
+            shortestPaths.append(getScenicLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
+        elif x == len(orderedCandidateNodes):
+            shortestPaths.append(getScenicLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
+            
+    return shortestPaths
 
 def getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
     startNode = getNearestNode(float(startLat), float(startLng))
@@ -229,7 +275,7 @@ def getRandomCandidateLocations():
     global candidates
     # print("Previous Candidates")
     # print(candidates)
-    candidates = getCandidateNodes(5)
+    candidates = getCandidateNodes(3)
     return candidates
 
 def getSetCandidates():

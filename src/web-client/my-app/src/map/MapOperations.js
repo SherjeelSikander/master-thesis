@@ -55,7 +55,11 @@ class MapOperations extends Component {
     4: "Scenic: Air Pollution",
     5: "Scenic: Cleanliness (Litter)",
     6: "Scenic: Trees + Air + Litter",
-    7: "Scenic (Multi): Trees + Air + Litter"
+    7: "Scenic (Multi): Trees + Air + Litter",
+    8: "Shortest Distance (Multi)",
+    9: "Scenic (Multi): Trees",
+    10: "Scenic (Multi): Air Pollution",
+    11: "Scenic (Multi): Cleanliness (Litter)",
   };
 
   static attributeTexts = {
@@ -125,6 +129,14 @@ class MapOperations extends Component {
                   active={this.state.algorithmId === 6}>{MapOperations.algorithmTexts[6]}</DropdownItem>
               <DropdownItem onClick={() => this.selectDropdownValue(7, "Scenic (Multi): Trees + Air + Litter")}
                   active={this.state.algorithmId === 7}>{MapOperations.algorithmTexts[7]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(8, "Shortest Distance (Multi)")}
+                  active={this.state.algorithmId === 8}>{MapOperations.algorithmTexts[8]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(9, "Scenic (Multi): Trees")}
+                  active={this.state.algorithmId === 9}>{MapOperations.algorithmTexts[9]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(10, "Scenic (Multi): Air Pollution")}
+                  active={this.state.algorithmId === 10}>{MapOperations.algorithmTexts[10]}</DropdownItem>
+              <DropdownItem onClick={() => this.selectDropdownValue(11, "Scenic (Multi): Cleanliness (Litter)")}
+                  active={this.state.algorithmId === 11}>{MapOperations.algorithmTexts[11]}</DropdownItem>
             </DropdownMenu>
           </Dropdown>
           &nbsp;

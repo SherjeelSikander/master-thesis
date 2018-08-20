@@ -36,6 +36,14 @@ def getShortestRoute():
             shortest_path = service.getScenicTreeAirLitterPath(startLat, startLng, destinationLat, destinationLng)
         elif algorithmId == 7: # multi scenic (tree + air + litter)
             shortest_path = service.getMultiScenicTreeAirLitterPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 8: # multi shortest path
+            shortest_path = service.getMultiShortestPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 9: # multi tree path
+            shortest_path = service.getMultiScenicTreePath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 10: # multi pollution path
+            shortest_path = service.getMultiScenicAirPollutionPath(startLat, startLng, destinationLat, destinationLng)
+        elif algorithmId == 11: # multi litter path
+            shortest_path = service.getMultiScenicLitterPath(startLat, startLng, destinationLat, destinationLng)
 
         return json.dumps(shortest_path)
     else:
