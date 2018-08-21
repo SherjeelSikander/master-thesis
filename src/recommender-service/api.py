@@ -18,6 +18,8 @@ def getShortestRoute():
     destinationLat = request.args.get('destinationLat')
     destinationLng = request.args.get('destinationLng')
     algorithmId = int(request.args.get('algorithmId'))
+    candidates = request.args.get('candidates')
+    service.setCandidates(candidates)
     
     if service.isWithinRange(startLat, startLng, destinationLat, destinationLng, 5):
         if algorithmId == 0: # shortest path

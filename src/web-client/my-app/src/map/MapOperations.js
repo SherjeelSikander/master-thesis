@@ -25,7 +25,8 @@ class MapOperations extends Component {
     selectDestination: 2,
     clear: 3, 
     calculate: 4,
-    selectCalculationType: 5
+    selectCalculationType: 5,
+    selectPOIs: 6
   };
 
   clearSelection(){
@@ -148,6 +149,9 @@ class MapOperations extends Component {
             <Button color="success" onClick={() => this.onShowAttributeSelected(2)} active={this.state.attributeSelected.includes(2)}>{MapOperations.attributeTexts[2]}</Button>
             &nbsp;
             <Button color="warning" onClick={() => this.onShowAttributeSelected(3)} active={this.state.attributeSelected.includes(3)}>{MapOperations.attributeTexts[3]}</Button>
+            &nbsp;
+            <Button color="warning" onClick={() => this.onRadioBtnClick(MapOperations.operations.selectPOIs)} 
+                  active={this.state.rSelected === MapOperations.operations.selectPOIs}>Select POIs</Button>
           </ButtonGroup>
         </Row>
 

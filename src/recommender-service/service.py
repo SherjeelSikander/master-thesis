@@ -278,6 +278,16 @@ def getRandomCandidateLocations():
     candidates = getCandidateNodes(3)
     return candidates
 
+def setCandidates(candidatesString):
+    global candidates
+    candidatesList = []
+    candidatesString = candidatesString.split(',')
+    print("length of candidate string is: " + str(len(candidatesString)))
+    if len(candidatesString) > 2:
+        for x in range(0, len(candidatesString), 4):
+            candidatesList.append((candidatesString[x], (candidatesString[x+1], candidatesString[x+2], candidatesString[x+3])))
+    candidates = candidatesList
+
 def getSetCandidates():
     if len(candidates)==0:
         return getRandomCandidateLocations()

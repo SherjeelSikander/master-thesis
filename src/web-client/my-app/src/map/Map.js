@@ -37,7 +37,8 @@ class Map extends Component {
         var localhost = 'http://127.0.0.1:5000/';
         console.log("From: " + state.start.lat + ", " + state.start.lng + " to " +  state.destination.lat + ", " + state.destination.lng);
         console.log("AlgorithmID: " + this.state.algorithmId)
-        axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng+'&algorithmId='+this.state.algorithmId)
+  
+        axios.get(localhost + 'route/?startLat='+state.start.lat+'&startLng='+state.start.lng+'&destinationLat='+state.destination.lat+'&destinationLng='+state.destination.lng+'&algorithmId='+this.state.algorithmId+'&candidates='+state.candidates)
         .then(response => {
           console.log("Response:")
           console.log(response.data)
@@ -65,6 +66,7 @@ class Map extends Component {
 
   getResult(result){
     this.setState({ result: result });
+    this.setState({ operation: MapOperations.operations.none });
     this.refs.mapOperations.clearSelection();
   }
 

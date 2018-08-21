@@ -10,12 +10,12 @@ map_attractions = path + filename + '.attractions'
 tree = ET.parse(map_attractions)
 attractions = tree.getroot()
 
-for x in range(0, len(attractions)):
-    print(attractions[x].attrib['name'])
-    print(attractions[x].attrib['lat'])
-    print(attractions[x].attrib['lon'])
+# for x in range(0, len(attractions)):
+#     print(attractions[x].attrib['name'])
+#     print(attractions[x].attrib['lat'])
+#     print(attractions[x].attrib['lon'])
     
-print("==========Map attractions loaded==========")
+print("Map attractions loaded")
 
 def getRandomCandidates(numberOfRandoms):
     randomIndexes = random.sample(range(1, len(attractions)- 1), numberOfRandoms)

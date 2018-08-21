@@ -12,20 +12,30 @@ class SimpleMap extends Component {
     this.state = {
       start: {lat: 0, lng: 0, title: "start"},
       destination: {lat: 0, lng: 0, title: "destination"},
-      mapLoaded: false
+      selectedPOIs: [],
+      mapLoaded: false,
+      candidates: []
     };
     this.selectStart = false;
     this.selectDestination = false;
+    this.selectPOIs = false;
   }
 
   componentWillReceiveProps(nextProps){
     if(nextProps.operation === MapOperations.operations.selectStart) {
       this.selectStart = true;
       this.selectDestination = false;
+      this.selectPOIs = false;
     }
     if(nextProps.operation === MapOperations.operations.selectDestination) {
       this.selectDestination = true;
       this.selectStart = false;
+      this.selectPOIs = false;
+    }
+    if(nextProps.operation === MapOperations.operations.selectPOIs) {
+      this.selectPOIs = true;
+      this.selectStart = false;
+      this.selectDestination = false;
     }
     if(nextProps.paths && nextProps.paths.length > 0){
       this.setState({paths:nextProps.paths})
@@ -84,6 +94,11 @@ class SimpleMap extends Component {
       this.setState({destination:{lat: lat, lng: lng, title: "destination", icon: this.props.greenMarker}});
       this.selectDestination = false;
       this.props.sendResult({destination:{lat: lat, lng: lng, title: "destination", icon: this.props.greenMarker}});
+    }
+    else if(this.selectPOIs === true){
+      var listLength = this.state.candidates.length;
+      this.state.candidates.push(["selectedPOI"+listLength, ["Random"+listLength, lat, lng]])
+      this.setState(this.state)
     }
   }
 
