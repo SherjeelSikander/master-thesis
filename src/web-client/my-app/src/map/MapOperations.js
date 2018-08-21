@@ -26,7 +26,8 @@ class MapOperations extends Component {
     clear: 3, 
     calculate: 4,
     selectCalculationType: 5,
-    selectPOIs: 6
+    selectPOIs: 6,
+    clearPOIs: 7
   };
 
   clearSelection(){
@@ -40,6 +41,10 @@ class MapOperations extends Component {
 
   calculate(){
     this.props.sendOperation(MapOperations.operations.calculate);
+  }
+
+  clearPOIs(){
+    this.props.sendOperation(MapOperations.operations.clearPOIs);
   }
 
   toggleDropdown() {
@@ -148,10 +153,12 @@ class MapOperations extends Component {
             &nbsp;
             <Button color="success" onClick={() => this.onShowAttributeSelected(2)} active={this.state.attributeSelected.includes(2)}>{MapOperations.attributeTexts[2]}</Button>
             &nbsp;
-            <Button color="warning" onClick={() => this.onShowAttributeSelected(3)} active={this.state.attributeSelected.includes(3)}>{MapOperations.attributeTexts[3]}</Button>
-            &nbsp;
+            {/* <Button color="warning" onClick={() => this.onShowAttributeSelected(3)} active={this.state.attributeSelected.includes(3)}>{MapOperations.attributeTexts[3]}</Button>
+            &nbsp; */}
             <Button color="warning" onClick={() => this.onRadioBtnClick(MapOperations.operations.selectPOIs)} 
                   active={this.state.rSelected === MapOperations.operations.selectPOIs}>Select POIs</Button>
+            &nbsp;
+            <Button color="warning" onClick={() => this.clearPOIs()}>Clear POIs</Button>
           </ButtonGroup>
         </Row>
 

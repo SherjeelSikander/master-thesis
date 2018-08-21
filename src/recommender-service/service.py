@@ -65,6 +65,9 @@ def getShortestPath(startLat, startLng, endLat, endLng):
 
 def getMultiShortestPath(startLat, startLng, endLat, endLng):
     orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    if len(orderedCandidateNodes) == 0:
+        return getShortestPath(startLat, startLng, endLat, endLng)
+
     shortestPaths = []
     for x in range(0, len(orderedCandidateNodes) + 1):
         if x == 0:
@@ -134,6 +137,9 @@ def getScenicTreePath(startLat, startLng, endLat, endLng):
 
 def getMultiScenicTreePath(startLat, startLng, endLat, endLng):
     orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    if len(orderedCandidateNodes) == 0:
+        return getScenicTreePath(startLat, startLng, endLat, endLng)
+
     shortestPaths = []
     for x in range(0, len(orderedCandidateNodes) + 1):
         if x == 0:
@@ -161,6 +167,9 @@ def getScenicAirPollutionPath(startLat, startLng, endLat, endLng):
 
 def getMultiScenicAirPollutionPath(startLat, startLng, endLat, endLng):
     orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    if len(orderedCandidateNodes) == 0:
+        return getScenicAirPollutionPath(startLat, startLng, endLat, endLng)
+
     shortestPaths = []
     for x in range(0, len(orderedCandidateNodes) + 1):
         if x == 0:
@@ -188,6 +197,9 @@ def getScenicLitterPath(startLat, startLng, endLat, endLng):
 
 def getMultiScenicLitterPath(startLat, startLng, endLat, endLng):
     orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    if len(orderedCandidateNodes) == 0:
+        return getScenicLitterPath(startLat, startLng, endLat, endLng)
+
     shortestPaths = []
     for x in range(0, len(orderedCandidateNodes) + 1):
         if x == 0:
@@ -215,6 +227,9 @@ def getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
 
 def getMultiScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
     orderedCandidateNodes = getOrderedCandidates(startLat, startLng, endLat, endLng)
+    if len(orderedCandidateNodes) == 0:
+        return getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng)
+
     shortestPaths = []
     for x in range(0, len(orderedCandidateNodes) + 1):
         if x == 0:
@@ -264,19 +279,12 @@ def getLitterLocations():
     litterLocations = litter.getAllLitterLocations()
     return litterLocations
 
-def getCandidateNodes(numberOfCandidates):
-    candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
-    candidateNodes = []
-    for x in range(0, numberOfCandidates):
-        candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
-    return candidateNodes
-
-def getRandomCandidateLocations():
-    global candidates
-    # print("Previous Candidates")
-    # print(candidates)
-    candidates = getCandidateNodes(3)
-    return candidates
+# def getCandidateNodes(numberOfCandidates):
+#     candidates = candidate_selection.getRandomCandidates(numberOfCandidates)
+#     candidateNodes = []
+#     for x in range(0, numberOfCandidates):
+#         candidateNodes.append((getNearestNode(float(candidates[x][1]), float(candidates[x][2])), candidates[x]))
+#     return candidateNodes
 
 def setCandidates(candidatesString):
     global candidates
@@ -289,13 +297,12 @@ def setCandidates(candidatesString):
     candidates = candidatesList
 
 def getSetCandidates():
-    if len(candidates)==0:
-        return getRandomCandidateLocations()
-    else:
-        return candidates
+    return candidates
 
 def getOrderedCandidates(startLat, startLng, endLat, endLng):
     candidateNodes = getSetCandidates()
+    if len(candidateNodes) == 0:
+        return []
     distanceCandidateNodes = []
     orderedCandidateNodes = []
 
