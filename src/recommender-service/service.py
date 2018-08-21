@@ -211,10 +211,18 @@ def getMultiScenicLitterPath(startLat, startLng, endLat, endLng):
             
     return shortestPaths
 
+sumTreeWeight = 0
+sumAirPollutionWeight = 0
+sumLitterWeight = 0
 def getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
+    global sumTreeWeight, sumAirPollutionWeight, sumLitterWeight
+    sumTreeWeight = 0
+    sumAirPollutionWeight = 0
+    sumLitterWeight = 0
+    
     startNode = getNearestNode(float(startLat), float(startLng))
     endNode = getNearestNode(float(endLat), float(endLng))
-
+    
     try:
         shortest_path = nx.shortest_path(graph, source=startNode, target=endNode, weight=edgeTreeAirLitterWeight)
     except:
@@ -223,6 +231,9 @@ def getScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
     for index, item in enumerate(shortest_path):
         shortest_path[index] = node_dict[item]
 
+    print("Sum Tree Weight: " + str(int(sumTreeWeight/1000)))  
+    print("Sum AirPollution Weight: " + str(int(sumAirPollutionWeight/1000)))
+    print("Sum Litter Weight: " + str(int(sumLitterWeight/1000))) 
     return [shortest_path]
 
 def getMultiScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
@@ -238,28 +249,28 @@ def getMultiScenicTreeAirLitterPath(startLat, startLng, endLat, endLng):
             shortestPaths.append(getScenicTreeAirLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), float(orderedCandidateNodes[x][1][1]), float(orderedCandidateNodes[x][1][2]))[0])
         elif x == len(orderedCandidateNodes):
             shortestPaths.append(getScenicTreeAirLitterPath(float(orderedCandidateNodes[x-1][1][1]), float(orderedCandidateNodes[x-1][1][2]), endLat, endLng)[0])
-            
+
     return shortestPaths
 
 #The function must accept exactly three positional arguments: the two endpoints of an edge and 
 # the dictionary of edge attributes for that edge. The function must return a number.
 def edgeTreeWeight(startEdge, endEdge, edgeAttributes):
     if edgeAttributes['trees'] == 0:
-        treesWeight = edgeAttributes['weight'] / 0.2
+        treesWeight = edgeAttributes['weight'] / 0.5
     else:
         densityScore = edgeAttributes['weight'] / edgeAttributes['trees']
         if densityScore > 0 and densityScore < 5: # Many trees touching 
-            treesWeight = edgeAttributes['weight'] / (10 * (edgeAttributes['trees']))
+            treesWeight = edgeAttributes['weight'] / (5 * (edgeAttributes['trees']))
         elif densityScore < 15: # Some trees touching
-            treesWeight = edgeAttributes['weight'] / (7.97 * (edgeAttributes['trees']))
+            treesWeight = edgeAttributes['weight'] / (4 * (edgeAttributes['trees']))
         elif densityScore < 25: # Trees close but do not touch 
-            treesWeight = edgeAttributes['weight'] / (6.01 * (edgeAttributes['trees']))
+            treesWeight = edgeAttributes['weight'] / (3 * (edgeAttributes['trees']))
         elif densityScore < 35: # Trees spread apart and do not touch 
-            treesWeight = edgeAttributes['weight'] / (3.99 * (edgeAttributes['trees']))
-        else: # Sparse trees 
             treesWeight = edgeAttributes['weight'] / (2 * (edgeAttributes['trees']))
+        else: # Sparse trees 
+            treesWeight = edgeAttributes['weight'] / (1 * (edgeAttributes['trees']))
 
-    return edgeAttributes['weight'] + treesWeight 
+    return treesWeight
 
     # OLD WEIGHTAGE FOR REFERENCE
     # if edgeAttributes['trees'] == 0:
@@ -270,23 +281,33 @@ def edgeTreeWeight(startEdge, endEdge, edgeAttributes):
 
 def edgeAirPollutionWeight(startEdge, endEdge, edgeAttributes):
     if edgeAttributes['pollution'] == 0:
-        airPollutionWeight = 1
+        airPollutionWeight = 35 / 25 
+    elif edgeAttributes['pollution'] < 25:
+        airPollutionWeight = edgeAttributes['pollution'] / 50
     else:
         airPollutionWeight = edgeAttributes['pollution'] / 25
     return edgeAttributes['weight'] * airPollutionWeight
 
 def edgeLitterWeight(startEdge, endEdge, edgeAttributes):
     if edgeAttributes['clean'] == 0:
-        litterWeight = 1
+        litterWeight = 0.1
     else:
-        litterWeight = edgeAttributes['clean'] * 2
+        litterWeight = edgeAttributes['clean']
     return edgeAttributes['weight'] * litterWeight
 
 def edgeTreeAirLitterWeight(startEdge, endEdge, edgeAttributes):
+    global sumTreeWeight, sumAirPollutionWeight, sumLitterWeight
+
     treeWeight = edgeTreeWeight(startEdge, endEdge, edgeAttributes)
     airpollutionWeight = edgeAirPollutionWeight(startEdge, endEdge, edgeAttributes)
     litterWeight = edgeLitterWeight(startEdge, endEdge, edgeAttributes)
-    return 0.36*treeWeight + 0.32*airpollutionWeight + 0.32*litterWeight
+    #return 0.2*edgeAttributes['weight'] + 0.36*treeWeight + 0.32*airpollutionWeight + 0.32*litterWeight
+    
+    sumTreeWeight = sumTreeWeight + treeWeight
+    sumAirPollutionWeight = sumAirPollutionWeight + airpollutionWeight
+    sumLitterWeight = sumLitterWeight + litterWeight
+
+    return treeWeight + airpollutionWeight + litterWeight 
 
 def getTreeLocations():
     treeLocations = trees.getAllTreeLocations()
