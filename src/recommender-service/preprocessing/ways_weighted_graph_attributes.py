@@ -48,17 +48,17 @@ def assignWeights():
     loadNodes()
     loadGraph()
     
-    if calculate_tree_weights == True:
-        loadTrees()
-        mapTreesToEdges()
+    # if calculate_tree_weights == True:
+    #     loadTrees()
+    #     mapTreesToEdges()
     
-    if filter_airpollution == True:
-        loadAirPollution()
-        filterAirPollution()
+    # if filter_airpollution == True:
+    #     loadAirPollution()
+    #     filterAirPollution()
 
-    if calculate_airpollution_weights == True:
-        loadAirPollution()
-        mapAirPollutionToEdges()
+    # if calculate_airpollution_weights == True:
+    #     loadAirPollution()
+    #     mapAirPollutionToEdges()
     
     if calculate_cleanliness_weights == True:
         loadCleanliness()
@@ -283,9 +283,14 @@ def mapCleanlinessToEdges():
 def mapCleanlinessToEdge(lat, lng, value):
     global graph
     nearestNode = getNearestNode(float(lat), float(lng))[0]
-    for neighbor in graph[nearestNode]:
-        graph[nearestNode][neighbor]['clean'] = graph[nearestNode][neighbor]['clean'] + value
-    # find all edges connecting to the node
+    ego_graph = nx.ego_graph(graph, nearestNode, radius=5, center=True, undirected=False, distance=None)
+    
+    if len(ego_graph.edges()) == 0:
+        for neighbor in graph[nearestNode]:
+            graph[nearestNode][neighbor]['clean'] = graph[nearestNode][neighbor]['clean'] + value
+    else:
+        for edge in enumerate(ego_graph.edges()):
+            graph[edge[1][0]][edge[1][1]]['clean'] = graph[edge[1][0]][edge[1][1]]['clean'] + value
 
 #endregion
 
